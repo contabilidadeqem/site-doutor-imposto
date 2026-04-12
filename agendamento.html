@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sugestão de Agendas — Doutor Impostos</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-light:#132B50;--blue:#1A6FD4;--blue-light:#2A8EFF;
+  --green:#22C55E;--green-dark:#16A34A;--gray-50:#F8FAFC;--gray-100:#F1F5F9;
+  --gray-200:#E2E8F0;--gray-300:#CBD5E1;--gray-400:#94A3B8;--gray-600:#475569;
+  --gray-800:#1E293B;--white:#FFFFFF;--red:#EF4444;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:20px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--gray-800);background:var(--gray-50);line-height:1.6;min-height:100vh}
+
+/* NAVBAR */
+.navbar{background:var(--navy);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.navbar__logo{font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
+.navbar__logo span{color:var(--green)}
+.navbar__sub{font-size:.65rem;font-weight:500;color:rgba(255,255,255,.45);display:block;margin-top:-2px}
+
+/* HEADER STRIP */
+.page-header{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;padding:2.5rem 1.5rem;text-align:center}
+.page-header h1{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;margin-bottom:.5rem}
+.page-header p{color:rgba(255,255,255,.7);font-size:.95rem;max-width:560px;margin:0 auto}
+.step-indicator{display:flex;justify-content:center;gap:.5rem;margin-top:1.25rem}
+.step-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .3s}
+.step-dot.active{background:var(--green)}
+
+/* MAIN LAYOUT */
+.scheduler{max-width:1100px;margin:2rem auto;padding:0 1rem 4rem}
+
+/* PROGRESS BAR */
+.progress-bar{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+.progress-label{font-size:.82rem;font-weight:600;color:var(--gray-600);white-space:nowrap}
+.progress-track{flex:1;height:6px;background:var(--gray-200);border-radius:100px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:100px;transition:width .4s ease}
+.progress-count{font-size:.82rem;font-weight:700;color:var(--blue);white-space:nowrap}
+
+/* 3-COLUMN GRID */
+.scheduler-grid{display:grid;grid-template-columns:1fr 220px 1fr;gap:1.25rem;align-items:start}
+@media(max-width:860px){.scheduler-grid{grid-template-columns:1fr}}
+
+/* CARDS */
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-md);overflow:hidden}
+.card-header{background:var(--navy);color:#fff;padding:.9rem 1.25rem;font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.card-header .icon{font-size:1rem}
+.card-body{padding:1.25rem}
+
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cal-month{font-size:.95rem;font-weight:700;color:var(--gray-800)}
+.cal-nav-btn{width:30px;height:30px;border:none;background:var(--gray-100);border-radius:6px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--gray-600)}
+.cal-nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+.cal-weekday{text-align:center;font-size:.72rem;font-weight:700;color:var(--gray-400);padding:.3rem 0;text-transform:uppercase}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.85rem;font-weight:500;cursor:default;color:var(--gray-400);position:relative}
+.cal-day.other-month{color:transparent;pointer-events:none}
+.cal-day.today{color:var(--blue);font-weight:700}
+.cal-day.today::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:var(--blue);border-radius:50%}
+.cal-day.available{color:var(--gray-800);cursor:pointer;background:rgba(26,111,212,.06);border:1px solid rgba(26,111,212,.2)}
+.cal-day.available:hover{background:rgba(26,111,212,.14);border-color:var(--blue)}
+.cal-day.selected{background:var(--blue);color:#fff;border:none}
+.cal-day.selected::after{display:none}
+.cal-day.blocked{color:var(--gray-400);cursor:not-allowed;opacity:.5}
+.cal-day.past{opacity:.4;cursor:not-allowed}
+
+/* TIME SELECTOR */
+.time-select-wrap{display:flex;flex-direction:column;gap:.75rem}
+.time-label{font-size:.8rem;font-weight:600;color:var(--gray-600)}
+.time-select{width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.9rem;font-family:inherit;color:var(--gray-800);background:var(--gray-50);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2394A3B8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.time-select:focus{border-color:var(--blue);background-color:#fff}
+.time-select:disabled{opacity:.5;cursor:not-allowed}
+
+.add-btn{width:100%;padding:.8rem 1rem;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-sm);font-size:.92rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;font-family:inherit}
+.add-btn:hover:not(:disabled){background:#155db5;transform:translateY(-1px)}
+.add-btn:disabled{background:var(--gray-300);cursor:not-allowed;transform:none}
+
+.hint{font-size:.78rem;color:var(--gray-400);margin-top:.4rem;line-height:1.5;text-align:center}
+
+/* AGENDA SLOTS */
+.slots-list{display:flex;flex-direction:column;gap:.75rem}
+.slot{border:1.5px dashed var(--gray-300);border-radius:var(--radius-sm);padding:.9rem 1rem;display:flex;align-items:center;gap:.75rem;transition:border-color .2s,background .2s}
+.slot.filled{border:1.5px solid var(--green);background:rgba(34,197,94,.05)}
+.slot-num{width:28px;height:28px;border-radius:50%;background:var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--gray-600);flex-shrink:0;transition:background .2s,color .2s}
+.slot.filled .slot-num{background:var(--green);color:#fff}
+.slot-info{flex:1}
+.slot-label{font-size:.75rem;font-weight:600;color:var(--gray-400);display:block}
+.slot.filled .slot-label{color:var(--green-dark)}
+.slot-value{font-size:.88rem;font-weight:600;color:var(--gray-500);display:block;margin-top:.1rem}
+.slot.filled .slot-value{color:var(--gray-800)}
+.slot-remove{background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:1.1rem;padding:4px;display:none;line-height:1}
+.slot.filled .slot-remove{display:block;color:var(--red)}
+
+/* SUBMIT SECTION */
+.submit-section{margin-top:1.5rem;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:1.5rem}
+.submit-btn{width:100%;padding:1rem 1.5rem;background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s,box-shadow .15s;font-family:inherit}
+.submit-btn:hover:not(:disabled){background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,.3)}
+.submit-btn:disabled{background:var(--gray-300);cursor:not-allowed;transform:none;box-shadow:none}
+.submit-note{text-align:center;font-size:.78rem;color:var(--gray-400);margin-top:.6rem}
+
+/* THANK YOU */
+.thank-you{display:none;text-align:center;padding:4rem 1.5rem;max-width:560px;margin:0 auto}
+.thank-you.show{display:block}
+.thank-you-icon{font-size:4rem;margin-bottom:1.25rem}
+.thank-you h2{font-size:1.6rem;font-weight:800;color:var(--gray-800);margin-bottom:.75rem}
+.thank-you p{color:var(--gray-600);line-height:1.75;font-size:.97rem}
+.thank-you .redirect-count{margin-top:1.5rem;font-size:.88rem;color:var(--gray-400)}
+
+/* Current selection highlight */
+.selecting-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(26,111,212,.1);color:var(--blue);border-radius:100px;padding:.3rem .8rem;font-size:.78rem;font-weight:700;margin-bottom:.75rem}
+.selecting-badge-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div>
+    <div class="navbar__logo">Doutor<span> Impostos</span></div>
+    <span class="navbar__sub">Especialista na tributação da área médica</span>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>📅 Sugestão de Agendas</h1>
+  <p>Escolha 3 opções de data e horário para nossa conversa. Nosso especialista irá confirmar a que melhor se encaixa na agenda.</p>
+  <div class="step-indicator">
+    <div class="step-dot active" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+  </div>
+</div>
+
+<div class="scheduler" id="schedulerMain">
+  <div class="progress-bar">
+    <span class="progress-label">Agendas selecionadas</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <span class="progress-count" id="progressCount">0 / 3</span>
+  </div>
+
+  <div class="scheduler-grid">
+
+    <!-- LEFT: CALENDAR -->
+    <div class="card">
+      <div class="card-header"><span class="icon">📆</span> Selecione uma data</div>
+      <div class="card-body">
+        <div id="selectingBadge" class="selecting-badge" style="display:none">
+          <span class="selecting-badge-dot"></span>
+          <span id="selectingLabel">Selecionando agenda 1</span>
+        </div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="prevMonth" onclick="changeMonth(-1)">&#8249;</button>
+          <span class="cal-month" id="calMonth"></span>
+          <button class="cal-nav-btn" id="nextMonth" onclick="changeMonth(1)" disabled>&#8250;</button>
+        </div>
+        <div class="cal-weekdays">
+          <div class="cal-weekday">Dom</div><div class="cal-weekday">Seg</div>
+          <div class="cal-weekday">Ter</div><div class="cal-weekday">Qua</div>
+          <div class="cal-weekday">Qui</div><div class="cal-weekday">Sex</div>
+          <div class="cal-weekday">Sáb</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+        <p class="hint" style="margin-top:.75rem">Apenas dias úteis disponíveis • Mínimo 3 dias a partir de hoje</p>
+      </div>
+    </div>
+
+    <!-- CENTER: TIME -->
+    <div class="card">
+      <div class="card-header"><span class="icon">🕐</span> Horário</div>
+      <div class="card-body">
+        <div class="time-select-wrap">
+          <label class="time-label">Data selecionada</label>
+          <div id="selectedDateDisplay" style="font-size:.88rem;font-weight:600;color:var(--gray-800);padding:.5rem;background:var(--gray-50);border-radius:6px;border:1px solid var(--gray-200);min-height:36px">
+            <span style="color:var(--gray-400);font-weight:400">Nenhuma data</span>
+          </div>
+          <label class="time-label" style="margin-top:.25rem">Horário preferido</label>
+          <select class="time-select" id="timeSelect" disabled>
+            <option value="">Selecione um horário</option>
+          </select>
+          <button class="add-btn" id="addSlotBtn" disabled onclick="addSlot()">+ Adicionar esta agenda</button>
+          <p class="hint">Selecione primeiro uma data disponível no calendário</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SELECTED SLOTS -->
+    <div class="card">
+      <div class="card-header"><span class="icon">✅</span> Suas sugestões de agenda</div>
+      <div class="card-body">
+        <div class="slots-list">
+          <div class="slot" id="slot0">
+            <div class="slot-num">1</div>
+            <div class="slot-info">
+              <span class="slot-label">1ª opção</span>
+              <span class="slot-value">Não selecionada</span>
+            </div>
+            <button class="slot-remove" onclick="removeSlot(0)" title="Remover">✕</button>
+          </div>
+          <div class="slot" id="slot1">
+            <div class="slot-num">2</div>
+            <div class="slot-info">
+              <span class="slot-label">2ª opção</span>
+              <span class="slot-value">Não selecionada</span>
+            </div>
+            <button class="slot-remove" onclick="removeSlot(1)" title="Remover">✕</button>
+          </div>
+          <div class="slot" id="slot2">
+            <div class="slot-num">3</div>
+            <div class="slot-info">
+              <span class="slot-label">3ª opção</span>
+              <span class="slot-value">Não selecionada</span>
+            </div>
+            <button class="slot-remove" onclick="removeSlot(2)" title="Remover">✕</button>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:1rem">As 3 sugestões são obrigatórias antes do envio</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button class="submit-btn" id="submitBtn" disabled onclick="submitSchedule()">Enviar sugestões de agenda →</button>
+    <p class="submit-note">🔒 Seus dados são protegidos. Nosso especialista irá confirmar o melhor horário com você.</p>
+  </div>
+</div>
+
+<!-- THANK YOU -->
+<div class="thank-you" id="thankYou">
+  <div class="thank-you-icon">🎉</div>
+  <h2>Sugestões enviadas com sucesso!</h2>
+  <p>Obrigado! Nosso especialista irá conciliar a agenda e dará o retorno pelos dados informados (WhatsApp e e-mail).</p>
+  <p style="margin-top:1rem">Fique atento ao seu WhatsApp e caixa de entrada!</p>
+  <div class="redirect-count" id="redirectCount">Você será redirecionado em <strong id="countNum">6</strong> segundos...</div>
+</div>
+
+<script>
+const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAYS_PT = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+
+let today = new Date();
+today.setHours(0,0,0,0);
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+
+let selectedDate = null;
+let slots = [null, null, null];
+let blockedDates = new Set();
+let currentSlotIndex = 0;
+
+function getAvailableDates() {
+  const available = [];
+  let count = 0;
+  let d = new Date(today);
+  d.setDate(d.getDate() + 1);
+  while (count < 3) {
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) {
+      available.push(new Date(d));
+      count++;
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  return available;
+}
+
+const availableDates = getAvailableDates();
+const availableDateKeys = new Set(availableDates.map(d => dateKey(d)));
+
+function dateKey(d) {
+  return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+}
+
+function getBlockedDateKeys() {
+  const blocked = new Set();
+  slots.forEach(s => { if(s) blocked.add(s.dateKey); });
+  return blocked;
+}
+
+function renderCalendar() {
+  const monthEl = document.getElementById('calMonth');
+  monthEl.textContent = MONTHS_PT[viewMonth] + ' ' + viewYear;
+
+  document.getElementById('prevMonth').disabled = (viewMonth === today.getMonth() && viewYear === today.getFullYear());
+  document.getElementById('nextMonth').disabled = true;
+
+  const container = document.getElementById('calDays');
+  container.innerHTML = '';
+
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+  const blockedKeys = getBlockedDateKeys();
+  const nextSlot = slots.indexOf(null);
+
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day other-month';
+    container.appendChild(el);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const d = new Date(viewYear, viewMonth, day);
+    const dk = dateKey(d);
+    const el = document.createElement('div');
+    el.textContent = day;
+
+    const isToday = dk === dateKey(today);
+    const isAvailable = availableDateKeys.has(dk);
+    const isBlocked = blockedKeys.has(dk);
+    const isSelected = selectedDate && dk === dateKey(selectedDate);
+    const isPast = d < today;
+
+    if (isSelected) {
+      el.className = 'cal-day selected';
+    } else if (isBlocked) {
+      el.className = 'cal-day blocked';
+      el.title = 'Já selecionado';
+    } else if (isAvailable && nextSlot !== -1) {
+      el.className = 'cal-day available' + (isToday ? ' today' : '');
+      el.onclick = () => selectDate(d);
+    } else if (isPast || d <= today) {
+      el.className = 'cal-day past';
+    } else {
+      el.className = 'cal-day' + (isToday ? ' today' : '');
+    }
+
+    container.appendChild(el);
+  }
+}
+
+function selectDate(d) {
+  selectedDate = d;
+  const dk = dateKey(d);
+  const blocked = getBlockedDateKeys();
+  if (blocked.has(dk)) return;
+
+  const nextSlot = slots.indexOf(null);
+  if (nextSlot === -1) return;
+
+  document.getElementById('selectedDateDisplay').innerHTML =
+    '<strong>' + DAYS_PT[d.getDay()] + ', ' + d.getDate() + ' de ' + MONTHS_PT[d.getMonth()] + '</strong>';
+
+  populateTimes();
+  document.getElementById('timeSelect').disabled = false;
+  document.getElementById('addSlotBtn').disabled = false;
+
+  renderCalendar();
+}
+
+function populateTimes() {
+  const sel = document.getElementById('timeSelect');
+  sel.innerHTML = '<option value="">Selecione um horário</option>';
+  for (let h = 8; h < 20; h++) {
+    ['00','30'].forEach(m => {
+      const label = String(h).padStart(2,'0') + ':' + m;
+      const opt = document.createElement('option');
+      opt.value = label;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+  }
+  sel.value = '';
+}
+
+function changeMonth(dir) {
+  viewMonth += dir;
+  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  renderCalendar();
+}
+
+function addSlot() {
+  const time = document.getElementById('timeSelect').value;
+  if (!selectedDate || !time) return;
+
+  const nextSlot = slots.indexOf(null);
+  if (nextSlot === -1) return;
+
+  const dk = dateKey(selectedDate);
+  const label = DAYS_PT[selectedDate.getDay()] + ', ' + selectedDate.getDate() + ' de ' + MONTHS_PT[selectedDate.getMonth()] + ' às ' + time;
+
+  slots[nextSlot] = { dateKey: dk, date: new Date(selectedDate), time, label };
+
+  updateSlotUI(nextSlot, label);
+  updateProgress();
+
+  selectedDate = null;
+  document.getElementById('selectedDateDisplay').innerHTML = '<span style="color:var(--gray-400);font-weight:400">Nenhuma data</span>';
+  document.getElementById('timeSelect').disabled = true;
+  document.getElementById('timeSelect').innerHTML = '<option value="">Selecione um horário</option>';
+  document.getElementById('addSlotBtn').disabled = true;
+
+  const nextEmpty = slots.indexOf(null);
+  if (nextEmpty !== -1) {
+    currentSlotIndex = nextEmpty;
+    document.getElementById('selectingBadge').style.display = 'inline-flex';
+    document.getElementById('selectingLabel').textContent = 'Selecionando agenda ' + (nextEmpty + 1);
+    updateDots(nextEmpty);
+  } else {
+    document.getElementById('selectingBadge').style.display = 'none';
+  }
+
+  renderCalendar();
+}
+
+function updateSlotUI(idx, label) {
+  const el = document.getElementById('slot' + idx);
+  el.classList.add('filled');
+  el.querySelector('.slot-value').textContent = label || 'Não selecionada';
+}
+
+function removeSlot(idx) {
+  slots[idx] = null;
+  const el = document.getElementById('slot' + idx);
+  el.classList.remove('filled');
+  el.querySelector('.slot-value').textContent = 'Não selecionada';
+
+  const nextEmpty = slots.indexOf(null);
+  currentSlotIndex = nextEmpty !== -1 ? nextEmpty : 3;
+  if (nextEmpty !== -1) {
+    document.getElementById('selectingBadge').style.display = 'inline-flex';
+    document.getElementById('selectingLabel').textContent = 'Selecionando agenda ' + (nextEmpty + 1);
+    updateDots(nextEmpty);
+  }
+
+  updateProgress();
+  renderCalendar();
+}
+
+function updateProgress() {
+  const filled = slots.filter(Boolean).length;
+  const pct = (filled / 3) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = filled + ' / 3';
+  document.getElementById('submitBtn').disabled = filled < 3;
+}
+
+function updateDots(idx) {
+  [0,1,2].forEach(i => {
+    document.getElementById('dot' + (i+1)).classList.toggle('active', i <= idx);
+  });
+}
+
+async function submitSchedule() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const lead = JSON.parse(sessionStorage.getItem('doutorImpostosLead') || '{}');
+
+  const agendas = slots.map((s, i) => (i+1) + 'ª opção: ' + s.label).join('\n');
+
+  const payloadFormspree = {
+    _subject: 'Novo lead + Agendas — Doutor Impostos',
+    _replyto: lead.email || '',
+    nome: lead.nome || '',
+    whatsapp: lead.whatsapp || '',
+    email: lead.email || '',
+    empresa: lead.empresa || '',
+    segmento: lead.segmento || '',
+    faturamento: lead.faturamento || '',
+    regime: lead.regime || '',
+    agenda_1: slots[0] ? slots[0].label : '',
+    agenda_2: slots[1] ? slots[1].label : '',
+    agenda_3: slots[2] ? slots[2].label : '',
+  };
+
+  const payloadJardel = {
+    _subject: 'Sugestão de Agendas — Doutor Impostos',
+    _replyto: lead.email || '',
+    nome: lead.nome || '',
+    whatsapp: lead.whatsapp || '',
+    email: lead.email || '',
+    empresa: lead.empresa || '',
+    segmento: lead.segmento || '',
+    faturamento: lead.faturamento || '',
+    regime: lead.regime || '',
+    agenda_1: slots[0] ? slots[0].label : '',
+    agenda_2: slots[1] ? slots[1].label : '',
+    agenda_3: slots[2] ? slots[2].label : '',
+    _cc: 'jardel.queiroz@qemcontabilidade.com',
+  };
+
+  try {
+    await fetch('https://formspree.io/f/mykbrqqr', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify(payloadFormspree)
+    });
+  } catch(e) {}
+
+  try {
+    await fetch('https://formspree.io/f/mykbrqqr', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify(payloadJardel)
+    });
+  } catch(e) {}
+
+  document.getElementById('schedulerMain').style.display = 'none';
+  const ty = document.getElementById('thankYou');
+  ty.classList.add('show');
+
+  let count = 6;
+  const interval = setInterval(() => {
+    count--;
+    document.getElementById('countNum').textContent = count;
+    if (count <= 0) {
+      clearInterval(interval);
+      window.location.href = 'https://www.doutorimposto.com';
+    }
+  }, 1000);
+}
+
+// INIT
+(function() {
+  document.getElementById('selectingBadge').style.display = 'inline-flex';
+  document.getElementById('selectingLabel').textContent = 'Selecionando agenda 1';
+  renderCalendar();
+  updateProgress();
+})();
+</script>
+</body>
+</html>

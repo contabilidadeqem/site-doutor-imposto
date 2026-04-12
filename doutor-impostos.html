@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doutor Impostos — Especialista na tributação da área médica</title>
+<meta name="description" content="Médico, você está pagando mais imposto do que deveria. Análise tributária gratuita e especializada para médicos e clínicas em todo o Brasil.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy-light:#132B50;--blue:#1A6FD4;--blue-light:#2A8EFF;
+  --green:#22C55E;--green-dark:#16A34A;--gray-50:#F8FAFC;--gray-100:#F1F5F9;
+  --gray-200:#E2E8F0;--gray-300:#CBD5E1;--gray-400:#94A3B8;--gray-600:#475569;
+  --gray-800:#1E293B;--white:#FFFFFF;--red:#EF4444;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:20px;--radius-xl:28px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 16px rgba(0,0,0,.10);--shadow-lg:0 12px 40px rgba(0,0,0,.14);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--gray-800);background:var(--white);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em}
+.h2{font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:700;line-height:1.25;letter-spacing:-0.01em}
+.lead{font-size:clamp(1rem,2vw,1.15rem);line-height:1.75;color:var(--gray-600)}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.section{padding:5rem 0}
+.section--gray{background:var(--gray-50)}
+.section-header{text-align:center;max-width:680px;margin:0 auto}
+.section-tag{display:inline-block;background:rgba(26,111,212,.09);color:var(--blue);border-radius:100px;padding:.3rem .9rem;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.75rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:var(--radius-sm);font-weight:700;font-size:1rem;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s,background .15s;text-decoration:none;white-space:nowrap;line-height:1}
+.btn--primary{background:var(--green);color:var(--white)}
+.btn--primary:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,.35)}
+.btn--outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.35)}
+.btn--outline:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.btn--lg{padding:1rem 2.5rem;font-size:1.1rem}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 0;transition:background .3s,box-shadow .3s}
+.navbar.scrolled{background:var(--navy);box-shadow:var(--shadow-md)}
+.navbar__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.navbar__logo{font-size:1.25rem;font-weight:800;color:var(--white);letter-spacing:-0.02em}
+.navbar__logo span{color:var(--green)}
+.navbar__sub{font-size:.65rem;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.04em;display:block;margin-top:-2px}
+.navbar__nav{display:flex;align-items:center;gap:2rem}
+.navbar__link{color:rgba(255,255,255,.8);font-size:.92rem;transition:color .2s}
+.navbar__link:hover{color:var(--white)}
+.navbar__cta{padding:.55rem 1.2rem;font-size:.88rem}
+@media(max-width:900px){.navbar__nav .navbar__link{display:none}}
+@media(max-width:600px){.navbar__sub{display:none}}
+.hero{min-height:100vh;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 60%,#0F2E5A 100%);display:flex;align-items:center;padding-top:5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(26,111,212,.18) 0%,transparent 70%);pointer-events:none}
+.hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero__badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--green);border-radius:100px;padding:.4rem 1rem;font-size:.85rem;font-weight:600;margin-bottom:1.5rem}
+.hero__badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+.hero__title{color:var(--white);margin-bottom:1.25rem}
+.hero__title em{font-style:normal;color:var(--green)}
+.hero__sub{color:rgba(255,255,255,.72);margin-bottom:2rem;font-size:1.08rem;line-height:1.75}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem}
+.hero__trust{display:flex;flex-wrap:wrap;gap:1.5rem}
+.hero__trust-item{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.6);font-size:.84rem}
+.hero__trust-check{color:var(--green);width:15px;height:15px;flex-shrink:0}
+.hero__visual{position:relative}
+.hero__photo-wrap{position:relative;border-radius:var(--radius-lg);overflow:hidden}
+.hero__photo-img{width:100%;min-height:420px;object-fit:cover;object-position:top center;border-radius:var(--radius-lg);display:block}
+.hero__photo-badge{position:absolute;bottom:1.25rem;left:50%;transform:translateX(-50%);background:rgba(11,31,58,.88);border:1px solid rgba(255,255,255,.14);border-radius:100px;padding:.45rem 1.25rem;white-space:nowrap;backdrop-filter:blur(12px);z-index:2}
+.hero__photo-badge span{font-size:.75rem;color:rgba(255,255,255,.55);display:block;line-height:1.2}
+.hero__photo-badge strong{font-size:.9rem;color:var(--white);display:block}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr}.hero__visual{display:none}}
+.dor__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:3rem}
+.dor__item{background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:border-color .2s,box-shadow .2s}
+.dor__item:hover{border-color:var(--blue);box-shadow:var(--shadow-md)}
+.dor__icon{width:42px;height:42px;border-radius:var(--radius-sm);background:#FEF2F2;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.25rem}
+.dor__text strong{display:block;font-size:.96rem;font-weight:600;color:var(--gray-800);margin-bottom:.3rem}
+.dor__text p{font-size:.87rem;color:var(--gray-600);line-height:1.55}
+.quebra__inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.quebra__tag{display:inline-block;background:rgba(26,111,212,.1);color:var(--blue);border-radius:100px;padding:.3rem .9rem;font-size:.82rem;font-weight:700;margin-bottom:1rem}
+.quebra__points{margin-top:2rem;display:flex;flex-direction:column;gap:1.1rem}
+.quebra__point{display:flex;gap:.85rem;align-items:flex-start}
+.quebra__point-num{width:28px;height:28px;background:var(--blue);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:.1rem}
+.quebra__point strong{display:block;font-size:.95rem;font-weight:600;color:var(--gray-800);margin-bottom:.2rem}
+.quebra__point p{font-size:.87rem;color:var(--gray-600);line-height:1.55}
+.quebra__right{background:var(--navy);border-radius:var(--radius-lg);padding:2.5rem;color:var(--white)}
+.quebra__highlight{font-size:1.45rem;font-weight:800;line-height:1.35;margin-bottom:1.1rem}
+.quebra__highlight em{font-style:normal;color:var(--green)}
+.quebra__right p{color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.75}
+.quebra__divider{margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:.82rem}
+@media(max-width:820px){.quebra__inner{grid-template-columns:1fr}}
+.prova__cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin-top:3rem}
+.prova__card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:2rem;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.prova__card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--green))}
+.prova__card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.prova__card-type{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-bottom:.4rem}
+.prova__card-name{font-size:1rem;font-weight:700;color:var(--gray-800);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--gray-100)}
+.prova__row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;font-size:.88rem;border-bottom:1px solid var(--gray-100)}
+.prova__row:last-of-type{border-bottom:none}
+.prova__row-label{color:var(--gray-600)}
+.prova__row-val{font-weight:600;text-align:right;max-width:55%}
+.prova__row-val.bad{color:var(--red)}
+.prova__row-val.good{color:var(--green-dark)}
+.prova__row-val.accent{color:var(--blue)}
+.prova__economia{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-radius:var(--radius-sm);padding:1.1rem;margin-top:1rem;text-align:center}
+.prova__economia-label{font-size:.78rem;color:var(--green-dark);font-weight:700;margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.04em}
+.prova__economia-val{font-size:1.85rem;font-weight:900;color:var(--green-dark)}
+.como__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:3.5rem;position:relative}
+.como__steps::before{content:'';position:absolute;top:2.5rem;left:calc(16.66% + 26px);right:calc(16.66% + 26px);height:2px;background:var(--gray-200);z-index:0}
+.como__step{text-align:center;position:relative;z-index:1;padding:0 .5rem}
+.como__step-num{width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);font-size:1.25rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;position:relative;box-shadow:0 0 0 8px rgba(26,111,212,.08)}
+.como__step h3{font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--gray-800)}
+.como__step p{font-size:.88rem;color:var(--gray-600);line-height:1.6;max-width:200px;margin:0 auto}
+@media(max-width:700px){.como__steps{grid-template-columns:1fr;gap:2rem}.como__steps::before{display:none}}
+.form-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:5.5rem 0}
+.form-wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:4.5rem;align-items:start}
+.form-left{color:var(--white)}
+.form-badge{display:inline-block;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);border-radius:100px;padding:.35rem .9rem;font-size:.82rem;font-weight:700;margin-bottom:1.25rem}
+.form-left h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;line-height:1.25;margin-bottom:1rem;color:var(--white)}
+.form-left > p{color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:2rem;font-size:.97rem}
+.form-checklist{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.form-checklist li{display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.8);font-size:.95rem}
+.form-checklist li::before{content:'\2713';width:22px;height:22px;min-width:22px;background:var(--green);color:var(--white);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800}
+.form-box{background:var(--white);border-radius:var(--radius-xl);padding:2.5rem;box-shadow:var(--shadow-lg)}
+.form-box-title{font-size:1.15rem;font-weight:700;color:var(--gray-800);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--gray-100)}
+.form-grid{display:flex;flex-direction:column;gap:1rem}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-label{font-size:.8rem;font-weight:600;color:var(--gray-600);letter-spacing:.03em}
+.form-input,.form-select,.form-textarea{width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.93rem;font-family:inherit;color:var(--gray-800);background:var(--gray-50);transition:border-color .2s,box-shadow .2s;outline:none;appearance:none;-webkit-appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,212,.12);background:var(--white)}
+.form-input.error,.form-select.error,.form-textarea.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.1)}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2394A3B8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.form-textarea{resize:vertical;min-height:88px;line-height:1.6}
+.form-error{font-size:.76rem;color:var(--red);margin-top:.15rem;display:none}
+.form-error.show{display:block}
+.form-submit{width:100%;padding:1rem 1.5rem;background:var(--green);color:var(--white);border:none;border-radius:var(--radius-sm);font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s,box-shadow .15s;margin-top:.25rem;font-family:inherit}
+.form-submit:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,.3)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.form-note{text-align:center;font-size:.78rem;color:var(--gray-400);margin-top:.6rem}
+.success-msg{display:none;text-align:center;padding:2.5rem 1.5rem}
+.success-msg.show{display:block}
+.success-icon{width:76px;height:76px;background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2.2rem}
+.success-msg h3{font-size:1.3rem;font-weight:700;color:var(--gray-800);margin-bottom:.6rem}
+.success-msg p{color:var(--gray-600);line-height:1.7;font-size:.95rem}
+.success-wa{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;background:#25D366;color:var(--white);border-radius:var(--radius-sm);padding:.75rem 1.5rem;font-weight:700;font-size:.95rem;transition:background .2s}
+.success-wa:hover{background:#1da851}
+@media(max-width:900px){.form-wrap{grid-template-columns:1fr}}
+@media(max-width:560px){.form-row-2{grid-template-columns:1fr}}
+.autoridade__inner{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center}
+.autoridade__nums{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem}
+.autoridade__num{background:var(--white);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid var(--gray-200);transition:box-shadow .2s}
+.autoridade__num:hover{box-shadow:var(--shadow-md)}
+.autoridade__num-val{font-size:2.2rem;font-weight:900;color:var(--blue);display:block;line-height:1}
+.autoridade__num-label{font-size:.8rem;color:var(--gray-600);margin-top:.4rem;line-height:1.4}
+.autoridade__right{background:var(--navy);border-radius:var(--radius-lg);padding:2.5rem;color:var(--white)}
+.autoridade__right h3{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:1rem}
+.autoridade__right p{color:rgba(255,255,255,.72);line-height:1.75;font-size:.95rem}
+.autoridade__right p+p{margin-top:1rem}
+@media(max-width:820px){.autoridade__inner{grid-template-columns:1fr}}
+.faq__list{max-width:780px;margin:3rem auto 0}
+.faq__item{border-bottom:1px solid var(--gray-200)}
+.faq__q{width:100%;background:none;border:none;text-align:left;padding:1.25rem 0;font-size:.98rem;font-weight:600;color:var(--gray-800);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:inherit;transition:color .2s}
+.faq__q:hover{color:var(--blue)}
+.faq__icon{width:26px;height:26px;min-width:26px;border-radius:50%;border:1.5px solid var(--gray-300);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s,border-color .2s,transform .3s;color:var(--gray-600);font-weight:700}
+.faq__item.open .faq__icon{background:var(--blue);border-color:var(--blue);color:var(--white);transform:rotate(45deg)}
+.faq__a{max-height:0;overflow:hidden;transition:max-height .38s ease}
+.faq__a p{font-size:.93rem;color:var(--gray-600);line-height:1.75;padding-bottom:1.25rem}
+.faq__item.open .faq__a{max-height:300px}
+.footer{background:var(--navy);color:rgba(255,255,255,.65);padding:3.5rem 0 2rem}
+.footer__inner{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer__brand{font-size:1.25rem;font-weight:800;color:var(--white);margin-bottom:.25rem;letter-spacing:-0.01em}
+.footer__brand span{color:var(--green)}
+.footer__brand-sub{font-size:.75rem;color:rgba(255,255,255,.35);margin-bottom:.85rem;letter-spacing:.03em}
+.footer__desc{font-size:.87rem;line-height:1.65;max-width:270px;margin-bottom:1.25rem}
+.footer__wa{display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:var(--green);border-radius:100px;padding:.4rem 1rem;font-size:.85rem;font-weight:600;transition:background .2s}
+.footer__wa:hover{background:rgba(34,197,94,.22)}
+.footer__col-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:.85rem}
+.footer__link{display:block;font-size:.88rem;margin-bottom:.5rem;color:rgba(255,255,255,.6);transition:color .2s}
+.footer__link:hover{color:var(--white)}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;font-size:.8rem;color:rgba(255,255,255,.35);flex-wrap:wrap;gap:.5rem}
+@media(max-width:720px){.footer__inner{grid-template-columns:1fr}.footer__bottom{flex-direction:column;text-align:center}}
+.wa-float{position:fixed;bottom:2rem;right:2rem;z-index:200;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .2s,box-shadow .2s;animation:waBounce 4s 3s infinite}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(37,211,102,.55)}
+.wa-float svg{width:32px;height:32px;fill:var(--white)}
+.wa-tooltip{position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%) translateX(6px);background:var(--gray-800);color:var(--white);font-size:.78rem;white-space:nowrap;padding:.4rem .9rem;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s}
+.wa-float:hover .wa-tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+@keyframes waBounce{0%,65%,82%,100%{transform:scale(1)}73%{transform:scale(1.1)}91%{transform:scale(1.04)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="container navbar__inner">
+    <a href="#" class="navbar__logo">Doutor<span> Impostos</span><span class="navbar__sub">Especialista na tributação da área médica</span></a>
+    <div class="navbar__nav">
+      <a href="#dor" class="navbar__link">Por que pagar menos</a>
+      <a href="#casos" class="navbar__link">Casos reais</a>
+      <a href="#faq" class="navbar__link">Dúvidas</a>
+      <a href="#formulario" class="btn btn--primary navbar__cta">Análise personalizada →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="hero__badge"><span class="hero__badge-dot"></span>Especialista na tributação da área médica</div>
+        <h1 class="h1 hero__title">Você pode estar pagando <em>imposto acima do ideal</em> e isso pode estar te custando dezenas de milhares por ano.</h1>
+        <p class="hero__sub">O problema não é o quanto você fatura. É como sua empresa está estruturada. Uma análise tributária gratuita pode revelar o caminho para pagar menos de forma legal e definitiva.</p>
+        <div class="hero__ctas">
+          <a href="#formulario" class="btn btn--primary btn--lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>Solicitar avaliação personalizada</a>
+          <a href="#casos" class="btn btn--outline">Ver casos reais</a>
+        </div>
+        <div class="hero__trust">
+          <span class="hero__trust-item"><svg class="hero__trust-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Atuação em todo o Brasil</span>
+          <span class="hero__trust-item"><svg class="hero__trust-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>100% legal e regulamentado</span>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__photo-wrap">
+          <img class="hero__photo-img" src="https://raw.githubusercontent.com/contabilidadeqem/site-doutor-imposto/main/Design%20sem%20nome%20(7).png" alt="Especialista Doutor Impostos">
+          <div class="hero__photo-badge"><span>Especialista em tributação médica</span><strong>Doutor Impostos</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" id="dor">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Você se identifica?</div>
+      <h2 class="h2">Situações que todo médico já viveu, <em>ou está vivendo agora!</em></h2>
+      <p class="lead" style="margin-top:1rem">Se você reconhece algum desses cenários, pode estar deixando dinheiro na mesa todo mês.</p>
+    </div>
+    <div class="dor__grid">
+      <div class="dor__item reveal"><div class="dor__icon">💸</div><div class="dor__text"><strong>Paga muito imposto mas não entende por quê</strong><p>A DAS chega e você paga sem questionar. Nunca ninguém te explicou se o regime está correto para o seu faturamento.</p></div></div>
+      <div class="dor__item reveal"><div class="dor__icon">📊</div><div class="dor__text"><strong>Está no Simples Nacional, mas não deveria</strong><p>Com o crescimento da clínica, o Simples pode ser o regime mais caro e seu contador nunca fez essa revisão.</p></div></div>
+      <div class="dor__item reveal"><div class="dor__icon">🏥</div><div class="dor__text"><strong>Abriu pessoa jurídica, mas não viu resultado</strong><p>Tem CNPJ há anos, mas a tributação continua pesada. A estrutura pode estar errada desde o início.</p></div></div>
+      <div class="dor__item reveal"><div class="dor__icon">📈</div><div class="dor__text"><strong>A clínica cresceu, mas o lucro não acompanhou</strong><p>Faturamento aumentou, mas os impostos também subiram na mesma proporção ou pior, mais do que deveriam.</p></div></div>
+      <div class="dor__item reveal"><div class="dor__icon">😤</div><div class="dor__text"><strong>Seu contador nunca deu uma ideia proativa</strong><p>Só recebe guias para pagar. Nunca uma sugestão de planejamento, nunca uma análise comparativa de regimes.</p></div></div>
+      <div class="dor__item reveal"><div class="dor__icon">🔍</div><div class="dor__text"><strong>Não sabe se o que paga é realmente correto</strong><p>Nunca fez uma revisão tributária independente. Confia no contador sem ter uma segunda opinião especializada.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="quebra">
+  <div class="container">
+    <div class="quebra__inner">
+      <div class="reveal">
+        <div class="quebra__tag">A verdade que ninguém te conta</div>
+        <h2 class="h2">Você não paga muito imposto porque ganha bem. Você paga porque está na estrutura errada.</h2>
+        <p class="lead" style="margin-top:1rem">A maioria dos médicos que atendemos estava em um regime tributário desatualizado ou nunca adequado ao seu perfil. Não é culpa do contador: é falta de especialização na área da saúde.</p>
+        <div class="quebra__points">
+          <div class="quebra__point"><span class="quebra__point-num">1</span><div><strong>Cada especialidade médica tem uma tributação ideal</strong><p>Clínico geral, cirurgião, dentista e clínica multiprofissional têm perfis tributários completamente diferentes.</p></div></div>
+          <div class="quebra__point"><span class="quebra__point-num">2</span><div><strong>O regime muda conforme o faturamento cresce</strong><p>O que era ideal há 3 anos pode estar te custando caro hoje. Revisão anual é obrigação, não opção.</p></div></div>
+          <div class="quebra__point"><span class="quebra__point-num">3</span><div><strong>Planejamento tributário é legal e ético</strong><p>Não estamos falando de sonegação. Estamos falando de usar a lei a seu favor como todo grande empresário faz.</p></div></div>
+        </div>
+      </div>
+      <div class="quebra__right reveal">
+        <div class="quebra__highlight">"O médico médio paga <em>até 33% do faturamento</em> em impostos quando poderia pagar 8% ou menos."</div>
+        <p>Isso porque a maioria nunca fez uma análise tributária especializada. Um contador generalista não conhece as especificidades da saúde: ISS variável por município, serviços hospitalares com redução de alíquota, regimes específicos para sociedades médicas.</p>
+        <div class="quebra__highlight">Trabalhamos exclusivamente com médicos e clínicas. Isso faz toda a diferença!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" id="casos">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Casos reais</div>
+      <h2 class="h2">O que acontece quando você otimiza sua estrutura tributária</h2>
+      <p class="lead" style="margin-top:1rem">Nomes fictícios, números reais. Perfis dos médicos que atendemos nos últimos 12 meses.</p>
+    </div>
+    <div class="prova__cards">
+      <div class="prova__card reveal">
+        <div class="prova__card-type">Clínica de especialidade</div>
+        <div class="prova__card-name">Dr. Felipe — Cardiologista · SP</div>
+        <div class="prova__row"><span class="prova__row-label">Faturamento mensal</span><span class="prova__row-val">R$ 45.000</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto antes</span><span class="prova__row-val bad">R$ 108.000/ano</span></div>
+        <div class="prova__row"><span class="prova__row-label">Regime anterior</span><span class="prova__row-val">Lucro Presumido</span></div>
+        <div class="prova__row"><span class="prova__row-label">Novo regime</span><span class="prova__row-val accent">Sociedade Médica + Lucro Real</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto atual</span><span class="prova__row-val good">R$ 52.000/ano</span></div>
+        <div class="prova__economia"><div class="prova__economia-label">Economia anual</div><div class="prova__economia-val">R$ 56.000</div></div>
+      </div>
+      <div class="prova__card reveal">
+        <div class="prova__card-type">Clínica multiprofissional</div>
+        <div class="prova__card-name">Dra. Renata — Clínica Odonto · RJ</div>
+        <div class="prova__row"><span class="prova__row-label">Faturamento mensal</span><span class="prova__row-val">R$ 28.000</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto antes</span><span class="prova__row-val bad">R$ 57.600/ano</span></div>
+        <div class="prova__row"><span class="prova__row-label">Regime anterior</span><span class="prova__row-val">Simples Nacional</span></div>
+        <div class="prova__row"><span class="prova__row-label">Novo regime</span><span class="prova__row-val accent">Simples Anexo III + ISS fixo</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto atual</span><span class="prova__row-val good">R$ 28.800/ano</span></div>
+        <div class="prova__economia"><div class="prova__economia-label">Economia anual</div><div class="prova__economia-val">R$ 28.800</div></div>
+      </div>
+      <div class="prova__card reveal">
+        <div class="prova__card-type">Médico autônomo + PJ</div>
+        <div class="prova__card-name">Dr. André — Cirurgião Plástico · MG</div>
+        <div class="prova__row"><span class="prova__row-label">Faturamento mensal</span><span class="prova__row-val">R$ 80.000</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto antes</span><span class="prova__row-val bad">R$ 230.000/ano</span></div>
+        <div class="prova__row"><span class="prova__row-label">Regime anterior</span><span class="prova__row-val">PF + Carnê-leão</span></div>
+        <div class="prova__row"><span class="prova__row-label">Novo regime</span><span class="prova__row-val accent">PJ Lucro Presumido + pró-labore</span></div>
+        <div class="prova__row"><span class="prova__row-label">Imposto atual</span><span class="prova__row-val good">R$ 132.000/ano</span></div>
+        <div class="prova__economia"><div class="prova__economia-label">Economia anual</div><div class="prova__economia-val">R$ 98.000</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="como">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Como funciona</div>
+      <h2 class="h2">3 passos para descobrir quanto você pode economizar</h2>
+      <p class="lead" style="margin-top:1rem">Sem complicação, sem burocracia. Você só precisa de 3 minutos para começar.</p>
+    </div>
+    <div class="como__steps">
+      <div class="como__step reveal"><div class="como__step-num">1</div><h3>Preenche o formulário</h3><p>Dados básicos sobre sua clínica e regime atual. Rápido e sem compromisso.</p></div>
+      <div class="como__step reveal"><div class="como__step-num">2</div><h3>Análise tributária</h3><p>Nossa equipe especializada analisa seu perfil e identifica as oportunidades de redução.</p></div>
+      <div class="como__step reveal"><div class="como__step-num">3</div><h3>Diagnóstico gratuito</h3><p>Você recebe um diagnóstico com o quanto pode economizar e o caminho para chegar lá.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:3rem" class="reveal">
+      <a href="#formulario" class="btn btn--primary btn--lg">Quero descobrir quanto estou pagando a mais! →</a>
+      <p style="margin-top:.75rem;font-size:.84rem;color:var(--gray-400)">Sem compromisso. Sem custo. Você decide se quer continuar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="form-section" id="formulario">
+  <div class="container">
+    <div class="form-wrap">
+      <div class="form-left reveal">
+        <div class="form-badge">Análise personalizada, gratuita e sem compromisso</div>
+        <h2>Descubra quanto você pode economizar em impostos.</h2>
+        <p>Preencha o formulário. Nossa equipe entra em contato em até 1 dia útil com um diagnóstico personalizado para o seu perfil.</p>
+        <ul class="form-checklist">
+          <li>Análise 100% gratuita</li>
+          <li>Diagnóstico tributário personalizado</li>
+          <li>Sem compromisso de contratação</li>
+          <li>Retorno em até 24h úteis</li>
+          <li>Sigilo total das informações</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="form-box">
+          <p class="form-box-title">Solicite sua análise tributária</p>
+          <form id="leadForm" class="form-grid" novalidate>
+            <div class="form-row-2">
+              <div class="form-group"><label class="form-label" for="nome">Nome completo *</label><input class="form-input" type="text" id="nome" placeholder="Dr. João Silva" autocomplete="name"><span class="form-error" id="err-nome">Informe seu nome completo.</span></div>
+              <div class="form-group"><label class="form-label" for="whatsapp">WhatsApp *</label><input class="form-input" type="tel" id="whatsapp" placeholder="(99) 99999-9999" autocomplete="tel"><span class="form-error" id="err-whatsapp">Informe um número válido.</span></div>
+            </div>
+            <div class="form-group"><label class="form-label" for="email">E-mail *</label><input class="form-input" type="email" id="email" placeholder="joao@clinica.com.br" autocomplete="email"><span class="form-error" id="err-email">Informe um e-mail válido.</span></div>
+            <div class="form-group"><label class="form-label" for="empresa">Nome da empresa *</label><input class="form-input" type="text" id="empresa" placeholder="Clínica Silva LTDA"><span class="form-error" id="err-empresa">Informe o nome da empresa.</span></div>
+            <div class="form-row-2">
+              <div class="form-group"><label class="form-label" for="segmento">Segmento *</label><select class="form-select" id="segmento"><option value="">Selecione...</option><option>Clínica médica</option><option>Odontologia</option><option>Cirurgia plástica</option><option>Cardiologia</option><option>Ortopedia</option><option>Dermatologia</option><option>Oftalmologia</option><option>Psiquiatria / Psicologia</option><option>Fisioterapia</option><option>Outro</option></select><span class="form-error" id="err-segmento">Selecione o segmento.</span></div>
+              <div class="form-group"><label class="form-label" for="faturamento">Faturamento mensal *</label><select class="form-select" id="faturamento"><option value="">Selecione...</option><option>Até R$ 10.000</option><option>R$ 10.000 a R$ 30.000</option><option>R$ 30.000 a R$ 60.000</option><option>R$ 60.000 a R$ 100.000</option><option>Acima de R$ 100.000</option></select><span class="form-error" id="err-faturamento">Selecione o faturamento.</span></div>
+            </div>
+            <div class="form-group"><label class="form-label" for="regime">Regime tributário atual *</label><select class="form-select" id="regime"><option value="">Selecione...</option><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option><option>Não sei / Nunca revisei</option></select><span class="form-error" id="err-regime">Selecione o regime tributário.</span></div>
+            <div class="form-group"><label class="form-label" for="mensagem">Mensagem (opcional)</label><textarea class="form-textarea" id="mensagem" placeholder="Descreva sua situação ou principal dúvida..."></textarea></div>
+            <button type="submit" class="form-submit" id="submitBtn">Solicitar análise personalizada →</button>
+            <p class="form-note">🔒 Seus dados são protegidos. Não compartilhamos com terceiros.</p>
+          </form>
+          <div class="success-msg" id="successMsg">
+            <div class="success-icon">✅</div>
+            <h3>Solicitação enviada com sucesso!</h3>
+            <p>Nosso time vai analisar seu perfil e entrar em contato em até <strong>1 dia útil</strong> pelo WhatsApp informado.</p>
+            <a href="https://wa.me/5581994034692" target="_blank" class="success-wa"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.006L2.038 22l5.109-1.295A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.962 7.962 0 01-4.069-1.114l-.29-.173-3.033.768.797-2.966-.19-.304A7.962 7.962 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>Falar no WhatsApp agora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="autoridade">
+  <div class="container">
+    <div class="autoridade__inner">
+      <div class="reveal">
+        <div class="section-tag">Por que o Doutor Impostos</div>
+        <h2 class="h2" style="margin-top:.75rem">Especialização na saúde não é diferencial, É REQUISITO!</h2>
+        <p class="lead" style="margin-top:1rem">Um contador generalista não conhece as especificidades tributárias da área médica. Nós vivemos isso todos os dias, com cada cliente.</p>
+        <div class="autoridade__nums">
+          <div class="autoridade__num"><span class="autoridade__num-val">+200</span><div class="autoridade__num-label">Médicos e clínicas atendidos</div></div>
+          <div class="autoridade__num"><span class="autoridade__num-val">R$ 4M</span><div class="autoridade__num-label">Economizados em impostos no último ano</div></div>
+          <div class="autoridade__num"><span class="autoridade__num-val">Mais de 6 anos</span><div class="autoridade__num-label">Focados exclusivamente na saúde</div></div>
+          <div class="autoridade__num"><span class="autoridade__num-val">100%</span><div class="autoridade__num-label">Baseado na lei e validado com diversos clientes</div></div>
+        </div>
+      </div>
+      <div class="autoridade__right reveal">
+        <h3>Nossa especialização faz diferença real</h3>
+        <p>Conhecemos profundamente o ISS variável por município para serviços de saúde, as alíquotas reduzidas para serviços hospitalares, a tributação de sociedades médicas e cooperativas, e as particularidades de cada especialidade.</p>
+        <p>Enquanto o contador genérico aplica a mesma tabela para todos, nós aplicamos a estratégia certa para cada perfil médico — e o resultado aparece diretamente no seu bolso.</p>
+        <a href="#formulario" class="btn btn--primary" style="margin-top:1.75rem">Quero uma análise personalizada →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Dúvidas frequentes</div>
+      <h2 class="h2">Perguntas que todo médico faz antes de começar</h2>
+    </div>
+    <div class="faq__list">
+      <div class="faq__item"><button class="faq__q">Isso é legal? Não é sonegação? <span class="faq__icon">+</span></button><div class="faq__a"><p>100% legal. Planejamento tributário é o uso estratégico das leis existentes para pagar menos impostos de forma lícita. É exatamente o que grandes empresas fazem com assessoria especializada. Sonegação é omitir receitas — o que jamais fazemos ou orientamos.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Preciso trocar de contador para fazer isso? <span class="faq__icon">+</span></button><div class="faq__a"><p>Não necessariamente. Nossa análise é independente. Se preferir, apresentamos o diagnóstico ao seu contador atual para que ele implemente as mudanças. Mas se quiser migrar para nossa gestão completa, cuidamos de tudo — inclusive da transição.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Quanto tempo leva para ver resultado? <span class="faq__icon">+</span></button><div class="faq__a"><p>Depende da complexidade do caso, mas boa parte das mudanças pode ser implementada no mês seguinte ao início do trabalho. A redução tributária é sentida já nas primeiras guias após a reestruturação.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Meu faturamento é baixo. Compensa fazer análise? <span class="faq__icon">+</span></button><div class="faq__a"><p>Sim. A análise é gratuita e vale para qualquer perfil. Mesmo médicos com faturamento de R$ 10.000/mês frequentemente estão no regime errado. Nossa equipe avalia e diz com honestidade se há ou não oportunidade no seu caso.</p></div></div>
+      <div class="faq__item"><button class="faq__q">A análise tem algum custo? <span class="faq__icon">+</span></button><div class="faq__a"><p>Não. O diagnóstico inicial é totalmente gratuito e sem compromisso. Só avançamos para um contrato de serviço se você quiser — e depois de entender exatamente o que estamos propondo e quanto vai economizar.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Atendem médicos em qualquer estado do Brasil? <span class="faq__icon">+</span></button><div class="faq__a"><p>Sim. Atendemos médicos e clínicas em todo o território nacional. Nossa operação é 100% digital — reuniões, documentos e relatórios são entregues de forma remota, com a mesma qualidade independente do seu estado.</p></div></div>
+    </div>
+    <div style="text-align:center;margin-top:3rem" class="reveal"><a href="#formulario" class="btn btn--primary btn--lg">Ainda tem dúvida? Fale com a gente →</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brand">Doutor<span> Impostos</span></div>
+        <div class="footer__brand-sub">Especialista na tributação da área médica</div>
+        <p class="footer__desc">Redução tributária legal e estratégica para médicos e clínicas em todo o Brasil. Seu imposto menor começa com uma análise personalizada e gratuita.</p>
+        <a href="https://wa.me/5581994034692" target="_blank" class="footer__wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.006L2.038 22l5.109-1.295A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.962 7.962 0 01-4.069-1.114l-.29-.173-3.033.768.797-2.966-.19-.304A7.962 7.962 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>Falar no WhatsApp</a>
+      </div>
+      <div>
+        <div class="footer__col-title">Navegação</div>
+        <a href="#dor" class="footer__link">Por que pagar menos</a>
+        <a href="#casos" class="footer__link">Casos reais</a>
+        <a href="#como" class="footer__link">Como funciona</a>
+        <a href="#formulario" class="footer__link">Análise personalizada</a>
+        <a href="#faq" class="footer__link">Dúvidas</a>
+      </div>
+      <div>
+        <div class="footer__col-title">Contato</div>
+        <a href="/cdn-cgi/l/email-protection#8deee2e3f9ecefe4e1e4e9ece9e8a3fce8e0cdeae0ece4e1a3eee2e0" class="footer__link"><span class="__cf_email__" data-cfemail="e1828e8f958083888d8885808584cf90848ca1868c80888dcf828e8c">[email&#160;protected]</span></a>
+        <a href="https://wa.me/5581994034692" target="_blank" class="footer__link">(81) 99403-4692</a>
+        <div style="margin-top:1rem;font-size:.85rem;line-height:1.7;color:rgba(255,255,255,.4)">Seg–Sex: 8h às 18h<br>Atendimento nacional</div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 Doutor Impostos. Todos os direitos reservados.</span>
+      <span>CNPJ: 58.848.633/0001-34</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5581994034692" target="_blank" aria-label="Falar no WhatsApp">
+  <span class="wa-tooltip">Falar no WhatsApp</span>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.006L2.038 22l5.109-1.295A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.962 7.962 0 01-4.069-1.114l-.29-.173-3.033.768.797-2.966-.19-.304A7.962 7.962 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>
+</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+const revealEls=document.querySelectorAll('.reveal');
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach((entry,i)=>{if(entry.isIntersecting){setTimeout(()=>entry.target.classList.add('visible'),i*90);revealObserver.unobserve(entry.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+revealEls.forEach(el=>revealObserver.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(target){e.preventDefault();window.scrollTo({top:target.offsetTop-76,behavior:'smooth'});}});});
+document.querySelectorAll('.faq__q').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.parentElement;const isOpen=item.classList.contains('open');document.querySelectorAll('.faq__item.open').forEach(el=>el.classList.remove('open'));if(!isOpen)item.classList.add('open');});});
+const waInput=document.getElementById('whatsapp');
+waInput.addEventListener('input',()=>{let v=waInput.value.replace(/\D/g,'').slice(0,11);if(v.length>7)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);else if(v.length>0)v='('+v;waInput.value=v;});
+const form=document.getElementById('leadForm');
+const successMsg=document.getElementById('successMsg');
+function setFieldState(id,errId,valid){const el=document.getElementById(id);const err=document.getElementById(errId);el.classList.toggle('error',!valid);err.classList.toggle('show',!valid);return valid;}
+function validate(){const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;const phoneRe=/^\(\d{2}\)\s\d{4,5}-\d{4}$/;return[setFieldState('nome','err-nome',document.getElementById('nome').value.trim().length>=3),setFieldState('whatsapp','err-whatsapp',phoneRe.test(document.getElementById('whatsapp').value.trim())),setFieldState('email','err-email',emailRe.test(document.getElementById('email').value.trim())),setFieldState('empresa','err-empresa',document.getElementById('empresa').value.trim().length>=2),setFieldState('segmento','err-segmento',document.getElementById('segmento').value!==''),setFieldState('faturamento','err-faturamento',document.getElementById('faturamento').value!==''),setFieldState('regime','err-regime',document.getElementById('regime').value!==''),].every(Boolean);}
+form.addEventListener('submit',async(e)=>{e.preventDefault();if(!validate()){const firstError=form.querySelector('.form-input.error,.form-select.error');if(firstError)firstError.scrollIntoView({behavior:'smooth',block:'center'});return;}
+const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Enviando...';
+const FORMSPREE_ENDPOINT='https://formspree.io/f/mykbrqqr';
+const payload={_subject:'Novo lead — Doutor Impostos',_replyto:document.getElementById('email').value.trim(),nome:document.getElementById('nome').value.trim(),whatsapp:document.getElementById('whatsapp').value.trim(),email:document.getElementById('email').value.trim(),empresa:document.getElementById('empresa').value.trim(),segmento:document.getElementById('segmento').value,faturamento:document.getElementById('faturamento').value,regime:document.getElementById('regime').value,mensagem:document.getElementById('mensagem').value.trim()||'(não informada)',};
+try{
+  await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+}catch(err){}
+// Store lead data for scheduling page
+const leadData={nome:payload.nome,whatsapp:payload.whatsapp,email:payload.email,empresa:payload.empresa,segmento:payload.segmento,faturamento:payload.faturamento,regime:payload.regime};
+sessionStorage.setItem('doutorImpostosLead',JSON.stringify(leadData));
+// Show redirect message
+form.style.display='none';
+const redirectMsg=document.createElement('div');
+redirectMsg.style.cssText='text-align:center;padding:2.5rem 1.5rem;';
+const styleEl=document.createElement('style');
+styleEl.textContent='@keyframes dot{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1.2)}}';
+document.head.appendChild(styleEl);
+document.querySelector('.form-box').appendChild(redirectMsg);
+setTimeout(()=>{window.location.href='agendamento.html';},4000);
+});
+</script>
+</body>
+</html>

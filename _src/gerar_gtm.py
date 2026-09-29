@@ -32,7 +32,7 @@ def dlv(path):
                       "parameter": [{"type": "INTEGER", "key": "dataLayerVersion", "value": "2"},
                                     B("setDefaultValue", False), T("name", path)]})
 
-const("CONST - GA4 ID", "G-XXXXXXXXXX")
+const("CONST - GA4 ID", "G-D6YJZ0Q2N7")
 const("CONST - Google Ads ID", "000000000")
 const("CONST - Google Ads Rotulo Lead", "XXXXXXXXXXX")
 const("CONST - Meta Pixel ID", "000000000000000")

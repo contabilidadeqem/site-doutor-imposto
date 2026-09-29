@@ -20,6 +20,7 @@ WA = "5581994034692"
 WA_URL = f"https://wa.me/{WA}"
 INSTAGRAM = "https://www.instagram.com/doutor_impostos/"
 CNPJ = "58.848.633/0001-34"
+EMAIL = "jardel.queiroz@qemcontabilidade.com"
 # ▼ Preencha para exibir no rodapé (exigência do Código de Ética do Contador para publicidade).
 RESPONSAVEL_TECNICO = ""   # ex.: "Jardel Queiroz"
 CRC = ""                   # ex.: "CRC-PE 000000/O-0"
@@ -168,6 +169,7 @@ def footer():
           <div>
             <div class="footer-col-title">Contato</div>
             <a href="{WA_URL}" target="_blank" rel="noopener" class="footer-link">(81) 99403-4692</a>
+            <a href="mailto:{EMAIL}" class="footer-link">{EMAIL}</a>
             <a href="{INSTAGRAM}" target="_blank" rel="noopener" class="footer-link">Instagram @doutor_impostos</a>
             <a href="/politica-de-privacidade/" class="footer-link">Política de privacidade</a>
             <div style="margin-top:.85rem;font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.35)">Seg–Sex: 8h às 18h<br>Atendimento 100% digital, em todo o Brasil</div>
@@ -591,7 +593,7 @@ priv_body = nav("/#formulario") + f"""<section class="page-hero"><div class="con
 <h2>5. Cookies</h2>
 <p>Usamos cookies para medir o site e as campanhas e para mostrar anúncios a quem já nos visitou. Você pode bloquear ou apagar os cookies nas configurações do seu navegador e ajustar suas preferências de anúncios em <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a> e nas configurações de anúncios do Instagram e do Facebook.</p>
 <h2>6. Seus direitos</h2>
-<p>Você pode pedir a qualquer momento: confirmação de que tratamos seus dados, acesso, correção, anonimização ou exclusão, portabilidade, informação sobre o compartilhamento e a revogação do consentimento. Basta falar com a gente pelo WhatsApp <a href="{WA_URL}" target="_blank" rel="noopener">(81) 99403-4692</a>.</p>
+<p>Você pode pedir a qualquer momento: confirmação de que tratamos seus dados, acesso, correção, anonimização ou exclusão, portabilidade, informação sobre o compartilhamento e a revogação do consentimento. Basta falar com a gente pelo WhatsApp <a href="{WA_URL}" target="_blank" rel="noopener">(81) 99403-4692</a> ou pelo e-mail <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 <h2>7. Segurança</h2>
 <p>Adotamos medidas técnicas e organizacionais para proteger os dados contra acesso não autorizado, perda ou uso indevido. As informações tributárias que você compartilha na análise são tratadas com sigilo profissional.</p>
 <h2>8. Alterações</h2>

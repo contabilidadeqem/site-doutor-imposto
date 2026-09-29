@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /agendamento.html
+Disallow: /ig/
+
+Sitemap: https://doutorimposto.com/sitemap.xml

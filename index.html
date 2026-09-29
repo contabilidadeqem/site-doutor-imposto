@@ -2,299 +2,36 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doutor Impostos — Especialista na tributação da área médica</title>
 <meta name="description" content="Médico, você está pagando mais imposto do que deveria. Análise tributária gratuita e especializada para médicos e clínicas em todo o Brasil.">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{overflow-x:hidden;width:100%;max-width:100%}
-:root{
-  --navy:#0B1F3A;--navy-light:#132B50;--blue:#1A6FD4;
-  --green:#22C55E;--green-dark:#16A34A;
-  --gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
-  --gray-400:#94A3B8;--gray-600:#475569;--gray-800:#1E293B;
-  --white:#FFFFFF;--red:#EF4444;
-  --r-sm:8px;--r-md:12px;--r-lg:20px;--r-xl:28px;
-  --sh-md:0 4px 16px rgba(0,0,0,.10);--sh-lg:0 12px 40px rgba(0,0,0,.14);
-}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--gray-800);background:#fff;line-height:1.6}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-
-/* ── UTILS ── */
-.container{width:100%;padding:0 1.1rem;margin:0 auto;max-width:1120px}
-.section{padding:3rem 0;width:100%}
-.section--gray{background:var(--gray-50)}
-.tag{display:inline-block;background:rgba(26,111,212,.1);color:var(--blue);border-radius:100px;padding:.28rem .85rem;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.7rem}
-.h2{font-size:1.45rem;font-weight:800;line-height:1.25;letter-spacing:-.01em}
-.lead{font-size:.95rem;line-height:1.75;color:var(--gray-600)}
-.center{text-align:center}
-.sec-head{text-align:center;max-width:680px;margin:0 auto}
-
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.8rem 1.5rem;border-radius:var(--r-sm);font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:all .15s;text-decoration:none;line-height:1;white-space:normal;word-break:break-word;text-align:center}
-.btn-green{background:var(--green);color:#fff}
-.btn-green:hover{background:var(--green-dark)}
-.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
-.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
-.btn-full{width:100%;display:flex}
-
-/* ── NAVBAR ── */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);padding:.75rem 0}
-.navbar-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
-.navbar-logo{font-size:1rem;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.15;flex-shrink:0}
-.navbar-logo span{color:var(--green)}
-.navbar-sub{font-size:.55rem;color:rgba(255,255,255,.4);display:block;margin-top:1px;font-weight:500;letter-spacing:.03em}
-.navbar-links{display:none}
-.navbar-cta{padding:.5rem 1rem;font-size:.82rem;flex-shrink:0}
-@media(min-width:900px){
-  .navbar-links{display:flex;align-items:center;gap:1.5rem}
-  .navbar-links a{color:rgba(255,255,255,.8);font-size:.88rem;transition:color .2s}
-  .navbar-links a:hover{color:#fff}
-}
-
-/* ── HERO ── */
-.hero{background:linear-gradient(155deg,var(--navy) 0%,var(--navy-light) 100%);padding:5.5rem 0 2.5rem;width:100%}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--green);border-radius:100px;padding:.35rem .9rem;font-size:.8rem;font-weight:600;margin-bottom:1.1rem}
-.hero-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-.hero-title{color:#fff;font-size:1.65rem;font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:1rem}
-.hero-title em{font-style:normal;color:var(--green)}
-.hero-sub{color:rgba(255,255,255,.72);font-size:.95rem;line-height:1.75;margin-bottom:1.5rem}
-.hero-btns{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.75rem}
-.hero-trust{display:flex;flex-direction:column;gap:.6rem}
-.hero-trust-item{display:flex;align-items:center;gap:.45rem;color:rgba(255,255,255,.6);font-size:.82rem}
-.hero-trust-icon{color:var(--green);font-size:.9rem;flex-shrink:0}
-.hero-photo{display:none}
-.hero-photo-wrap{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;position:relative}
-.hero-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-.hero-photo-tag{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);background:rgba(11,31,58,.88);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.4rem 1.1rem;white-space:nowrap;text-align:center;backdrop-filter:blur(10px)}
-.hero-photo-tag span{font-size:.68rem;color:rgba(255,255,255,.5);display:block}
-.hero-photo-tag strong{font-size:.82rem;color:#fff;display:block}
-@media(min-width:860px){
-  .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-  .hero-title{font-size:2.4rem}
-  .hero-btns{flex-direction:row;flex-wrap:wrap}
-  .hero-btns .btn{width:auto}
-  .hero-trust{flex-direction:row;flex-wrap:wrap;gap:1.25rem}
-  .hero-photo{display:block}
-}
-
-/* ── DOR ── */
-.dor-grid{display:flex;flex-direction:column;gap:.85rem;margin-top:2rem}
-.dor-item{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--r-md);padding:1.1rem;display:flex;gap:.85rem;align-items:flex-start}
-.dor-icon{width:38px;height:38px;min-width:38px;background:#FEF2F2;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.dor-title{font-size:.88rem;font-weight:700;color:var(--gray-800);margin-bottom:.25rem}
-.dor-desc{font-size:.82rem;color:var(--gray-600);line-height:1.55}
-@media(min-width:640px){.dor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}}
-@media(min-width:960px){.dor-grid{grid-template-columns:repeat(3,1fr)}}
-
-/* ── QUEBRA ── */
-.quebra-wrap{display:flex;flex-direction:column;gap:2rem}
-.quebra-points{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
-.quebra-point{display:flex;gap:.8rem;align-items:flex-start}
-.quebra-num{width:26px;height:26px;min-width:26px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:.15rem}
-.quebra-pt-title{font-size:.88rem;font-weight:700;color:var(--gray-800);margin-bottom:.2rem}
-.quebra-pt-desc{font-size:.82rem;color:var(--gray-600);line-height:1.55}
-.quebra-box{background:var(--navy);border-radius:var(--r-lg);padding:1.75rem;color:#fff}
-.quebra-hl{font-size:1.15rem;font-weight:800;line-height:1.35;margin-bottom:.9rem}
-.quebra-hl em{font-style:normal;color:var(--green)}
-.quebra-box p{color:rgba(255,255,255,.65);font-size:.88rem;line-height:1.75}
-.quebra-hl2{margin-top:1.1rem;margin-bottom:0}
-@media(min-width:820px){.quebra-wrap{flex-direction:row;align-items:flex-start}.quebra-left,.quebra-box{flex:1}}
-
-/* ── CASOS ── */
-.casos-grid{display:flex;flex-direction:column;gap:1.1rem;margin-top:2rem}
-.caso-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:1.35rem;position:relative;overflow:hidden}
-.caso-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--green))}
-.caso-type{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-400);margin-bottom:.35rem}
-.caso-name{font-size:.92rem;font-weight:700;color:var(--gray-800);margin-bottom:.9rem;padding-bottom:.6rem;border-bottom:1px solid var(--gray-100)}
-.caso-row{display:flex;justify-content:space-between;align-items:flex-start;padding:.4rem 0;font-size:.84rem;border-bottom:1px solid var(--gray-100);gap:.5rem}
-.caso-row:last-of-type{border-bottom:none}
-.caso-label{color:var(--gray-600);flex-shrink:0}
-.caso-val{font-weight:700;text-align:right}
-.caso-val.bad{color:var(--red)}
-.caso-val.good{color:var(--green-dark)}
-.caso-val.accent{color:var(--blue)}
-.caso-eco{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-radius:var(--r-sm);padding:.9rem;margin-top:.9rem;text-align:center}
-.caso-eco-label{font-size:.72rem;color:var(--green-dark);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem}
-.caso-eco-val{font-size:1.65rem;font-weight:900;color:var(--green-dark)}
-@media(min-width:700px){.casos-grid{display:grid;grid-template-columns:1fr 1fr}}
-@media(min-width:1000px){.casos-grid{grid-template-columns:repeat(3,1fr)}}
-
-/* ── COMO ── */
-.como-steps{display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem}
-.como-step{display:flex;gap:1rem;align-items:flex-start}
-.como-num{width:44px;height:44px;min-width:44px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;flex-shrink:0;box-shadow:0 0 0 6px rgba(26,111,212,.1)}
-.como-title{font-size:.92rem;font-weight:700;color:var(--gray-800);margin-bottom:.25rem}
-.como-desc{font-size:.84rem;color:var(--gray-600);line-height:1.6}
-@media(min-width:700px){
-  .como-steps{flex-direction:row;gap:2rem}
-  .como-step{flex-direction:column;align-items:center;text-align:center;flex:1}
-}
-
-/* ── FORM ── */
-.form-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:3.5rem 0;width:100%}
-.form-wrap{display:flex;flex-direction:column;gap:2rem}
-.form-left{color:#fff}
-.form-badge{display:inline-block;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);border-radius:100px;padding:.3rem .85rem;font-size:.78rem;font-weight:700;margin-bottom:1rem}
-.form-left h2{font-size:1.35rem;font-weight:800;line-height:1.25;margin-bottom:.8rem;color:#fff}
-.form-left>p{color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:1.5rem;font-size:.9rem}
-.form-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}
-.form-list li{display:flex;align-items:center;gap:.65rem;color:rgba(255,255,255,.8);font-size:.9rem}
-.form-list li::before{content:'✓';width:19px;height:19px;min-width:19px;background:var(--green);color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800}
-.form-box{background:#fff;border-radius:var(--r-xl);padding:1.5rem;box-shadow:var(--sh-lg)}
-.form-box-title{font-size:1.05rem;font-weight:700;color:var(--gray-800);margin-bottom:1.25rem;padding-bottom:.8rem;border-bottom:1px solid var(--gray-100)}
-.form-fields{display:flex;flex-direction:column;gap:.85rem}
-.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
-.form-group{display:flex;flex-direction:column;gap:.3rem}
-.form-label{font-size:.75rem;font-weight:700;color:var(--gray-600);letter-spacing:.03em}
-.form-input,.form-select,.form-textarea{width:100%;padding:.68rem .9rem;border:1.5px solid var(--gray-200);border-radius:var(--r-sm);font-size:.9rem;font-family:inherit;color:var(--gray-800);background:var(--gray-50);outline:none;appearance:none;-webkit-appearance:none;transition:border-color .2s,box-shadow .2s}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,212,.12);background:#fff}
-.form-input.err,.form-select.err,.form-textarea.err{border-color:var(--red)}
-.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath fill='%2394A3B8' d='M1 1l4.5 4.5L10 1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
-.form-textarea{resize:vertical;min-height:76px;line-height:1.6}
-.form-err{font-size:.73rem;color:var(--red);display:none;margin-top:.1rem}
-.form-err.show{display:block}
-.form-submit{width:100%;padding:.9rem;background:var(--green);color:#fff;border:none;border-radius:var(--r-sm);font-size:.98rem;font-weight:700;cursor:pointer;transition:background .2s;font-family:inherit;margin-top:.15rem}
-.form-submit:hover{background:var(--green-dark)}
-.form-submit:disabled{opacity:.6;cursor:not-allowed}
-.form-note{text-align:center;font-size:.73rem;color:var(--gray-400);margin-top:.5rem}
-.success{display:none;text-align:center;padding:2rem 1rem}
-.success.show{display:block}
-.success-icon{width:64px;height:64px;background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.8rem}
-.success h3{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
-.success p{color:var(--gray-600);font-size:.9rem;line-height:1.7}
-.success-wa{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.25rem;background:#25D366;color:#fff;border-radius:var(--r-sm);padding:.7rem 1.35rem;font-weight:700;font-size:.9rem}
-@media(min-width:900px){
-  .form-wrap{flex-direction:row;gap:4rem;align-items:flex-start}
-  .form-left{flex:1}
-  .form-right{flex:1.25}
-  .form-left h2{font-size:1.75rem}
-}
-@media(max-width:480px){.form-row2{grid-template-columns:1fr}}
-
-/* ── AUTORIDADE ── */
-.aut-wrap{display:flex;flex-direction:column;gap:2rem}
-.aut-nums{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:1.5rem}
-.aut-num{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-md);padding:1.1rem;text-align:center}
-.aut-val{font-size:1.6rem;font-weight:900;color:var(--blue);display:block;line-height:1}
-.aut-lbl{font-size:.75rem;color:var(--gray-600);margin-top:.35rem;line-height:1.4}
-.aut-box{background:var(--navy);border-radius:var(--r-lg);padding:1.75rem;color:#fff}
-.aut-box h3{font-size:.97rem;font-weight:700;color:#fff;margin-bottom:.8rem}
-.aut-box p{color:rgba(255,255,255,.7);line-height:1.75;font-size:.88rem}
-.aut-box p+p{margin-top:.8rem}
-@media(min-width:820px){.aut-wrap{flex-direction:row;align-items:flex-start}.aut-left{flex:1.1}.aut-box{flex:1}}
-
-/* ── FAQ ── */
-.faq-list{max-width:760px;margin:2rem auto 0}
-.faq-item{border-bottom:1px solid var(--gray-200)}
-.faq-q{width:100%;background:none;border:none;text-align:left;padding:1rem 0;font-size:.9rem;font-weight:700;color:var(--gray-800);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:inherit}
-.faq-q:hover{color:var(--blue)}
-.faq-icon{width:23px;height:23px;min-width:23px;border-radius:50%;border:1.5px solid var(--gray-300);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:var(--gray-600);transition:all .3s;flex-shrink:0}
-.faq-item.open .faq-icon{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
-.faq-a p{font-size:.88rem;color:var(--gray-600);line-height:1.75;padding-bottom:1rem}
-.faq-item.open .faq-a{max-height:400px}
-
-/* ── FOOTER ── */
-.footer{background:var(--navy);color:rgba(255,255,255,.6);padding:2.5rem 0 1.5rem;width:100%}
-.footer-top{display:flex;flex-direction:column;gap:2rem;padding-bottom:1.75rem;border-bottom:1px solid rgba(255,255,255,.1)}
-.footer-brand{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:.2rem}
-.footer-brand span{color:var(--green)}
-.footer-brand-sub{font-size:.68rem;color:rgba(255,255,255,.3);margin-bottom:.65rem;letter-spacing:.03em}
-.footer-desc{font-size:.82rem;line-height:1.65;margin-bottom:1rem}
-.footer-wa{display:inline-flex;align-items:center;gap:.45rem;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:var(--green);border-radius:100px;padding:.38rem .9rem;font-size:.8rem;font-weight:600}
-.footer-col-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3);margin-bottom:.65rem}
-.footer-link{display:block;font-size:.84rem;margin-bottom:.45rem;color:rgba(255,255,255,.55);transition:color .2s}
-.footer-link:hover{color:#fff}
-.footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.footer-bottom{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding-top:1.25rem;font-size:.75rem;color:rgba(255,255,255,.3);text-align:center}
-@media(min-width:720px){
-  .footer-top{flex-direction:row;gap:3rem}
-  .footer-brand-col{flex:1.5}
-  .footer-cols-wrap{flex:1}
-  .footer-bottom{flex-direction:row;justify-content:space-between}
-}
-
-/* ── WA FLOAT ── */
-.wa-btn{position:fixed;bottom:1.25rem;right:1.25rem;z-index:200;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.45)}
-.wa-btn svg{width:28px;height:28px;fill:#fff}
-
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-
-/* ── CALCULADORA ── */
-.calc-section{background:var(--navy);padding:3.5rem 0;width:100%}
-.calc-head{text-align:center;max-width:680px;margin:0 auto 2rem}
-.calc-head .tag{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
-.calc-head h2{color:#fff;font-size:1.45rem;font-weight:800;line-height:1.25;letter-spacing:-.01em}
-.calc-head p{color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.75;margin-top:.65rem}
-.calc-body{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.5rem;max-width:900px;margin:0 auto}
-.calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.75rem}
-@media(max-width:560px){.calc-inputs{grid-template-columns:1fr}}
-.ci-wrap--select{padding:0}
-.ci-select{flex:1;background:transparent;border:none;color:#fff;font-size:.9rem;padding:0 10px;height:38px;outline:none;font-family:inherit;width:100%;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M1 1l4.5 4.5L10 1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
-.ci-select option{background:#0B1F3A;color:#fff}
-.ci-group{display:flex;flex-direction:column;gap:.3rem}
-.ci-label{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.04em;text-transform:uppercase}
-.ci-wrap{display:flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;overflow:hidden;transition:border-color .2s}
-.ci-wrap:focus-within{border-color:var(--green)}
-.ci-pre{padding:0 10px;font-size:.82rem;color:rgba(255,255,255,.35);border-right:1px solid rgba(255,255,255,.1);height:38px;display:flex;align-items:center;white-space:nowrap}
-.ci-input{flex:1;background:transparent;border:none;color:#fff;font-size:.9rem;padding:0 10px;height:38px;outline:none;font-family:inherit;min-width:0}
-.calc-results-title{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.85rem}
-.calc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.25rem}
-@media(max-width:600px){.calc-cards{grid-template-columns:1fr}}
-.cc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem}
-.cc.winner{border:2px solid var(--green);background:rgba(34,197,94,.08)}
-.cc-badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--green);color:#fff;border-radius:100px;display:inline-block;padding:.15rem .65rem;margin-bottom:.5rem}
-.cc-badge--atual{background:rgba(255,255,255,.15);color:rgba(255,255,255,.6)}
-.cc.atual{border-color:rgba(255,255,255,.2)}
-.cc-mes-label{font-size:.68rem;color:rgba(255,255,255,.35);margin-bottom:.15rem;margin-top:.5rem}
-.cc-name{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:.2rem}
-.cc-aliq{font-size:.73rem;color:rgba(255,255,255,.4);margin-bottom:.7rem}
-.cc-val{font-size:1.45rem;font-weight:800;color:#fff}
-.cc.winner .cc-val{color:var(--green)}
-.cc-sub{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.15rem}
-.calc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.5rem}
-@media(max-width:600px){.calc-metrics{grid-template-columns:1fr 1fr}}
-.cm{background:rgba(255,255,255,.05);border-radius:10px;padding:1.25rem 1.1rem}
-.cm.hi{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18)}
-.cm-label{font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em}
-.cm-val{font-size:1.7rem;font-weight:800;color:#fff;line-height:1.1}
-.cm-ano{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-top:.35rem;display:block}
-.cm-sub{font-size:.8rem;color:rgba(255,255,255,.3);margin-top:.3rem;padding-top:.3rem;border-top:1px solid rgba(255,255,255,.07)}
-.cm.hi .cm-val{color:var(--green)}
-.cm.hi .cm-ano{color:rgba(34,197,94,.5)}
-.calc-table-wrap{background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden;margin-bottom:1.25rem}
-.calc-table{width:100%;border-collapse:collapse;font-size:.8rem}
-.calc-table th{text-align:left;padding:.6rem .85rem;color:rgba(255,255,255,.35);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.08)}
-.calc-table td{padding:.6rem .85rem;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.05)}
-.calc-table tr:last-child td{font-weight:700;color:#fff;border-bottom:none;background:rgba(255,255,255,.04)}
-.calc-eco{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.5rem}
-@media(max-width:500px){.calc-eco{grid-template-columns:1fr 1fr}}
-.ce-item{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:.75rem;text-align:center}
-.ce-period{font-size:.68rem;color:rgba(255,255,255,.4);margin-bottom:.25rem}
-.ce-val{font-size:.95rem;font-weight:700;color:var(--green)}
-.calc-tabs{display:flex;gap:.5rem;margin-bottom:1rem}
-.calc-tab{font-size:.78rem;padding:.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:all .2s}
-.calc-tab.active{background:var(--green);border-color:var(--green);color:#fff}
-.calc-panel{display:none}
-.calc-panel.active{display:block}
-.calc-cta-bar{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.calc-cta-bar p{font-size:.85rem;color:rgba(255,255,255,.75);margin:0}
-.calc-cta-bar strong{color:var(--green)}
-.calc-chart-wrap{position:relative;width:100%;height:180px}
-
-</style>
+<link rel="canonical" href="https://doutorimposto.com/">
+<meta name="theme-color" content="#0B1F3A">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Doutor Impostos">
+<meta property="og:title" content="Doutor Impostos — Especialista na tributação da área médica">
+<meta property="og:description" content="Médico, você pode estar pagando mais imposto do que deveria. Análise tributária gratuita para médicos e clínicas em todo o Brasil.">
+<meta property="og:url" content="https://doutorimposto.com/">
+<meta property="og:image" content="https://doutorimposto.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1F3A'/%3E%3Ctext x='32' y='44' font-family='Segoe UI,Arial' font-size='34' font-weight='800' text-anchor='middle' fill='%2322C55E'%3EDI%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="/img/especialista.webp" type="image/webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AccountingService","name":"Doutor Impostos","url":"https://doutorimposto.com/","image":"https://doutorimposto.com/img/og.jpg","description":"Planejamento tributário e contabilidade especializada para médicos e clínicas em todo o Brasil.","telephone":"+55-81-99403-4692","areaServed":{"@type":"Country","name":"Brasil"},"sameAs":["https://www.instagram.com/doutor_impostos/"],"taxID":"58.848.633/0001-34"}</script>
+<!-- @faqld:start -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Isso é legal? Não é sonegação?", "acceptedAnswer": {"@type": "Answer", "text": "100% legal. Planejamento tributário é o uso estratégico das leis existentes para pagar menos impostos de forma lícita. É exatamente o que grandes empresas fazem com assessoria especializada. Sonegação é omitir receitas — o que jamais fazemos ou orientamos."}}, {"@type": "Question", "name": "Preciso trocar de contador para fazer isso?", "acceptedAnswer": {"@type": "Answer", "text": "Não necessariamente. Nossa análise é independente. Se preferir, apresentamos o diagnóstico ao seu contador atual. Mas se quiser migrar para nossa gestão completa, cuidamos de tudo — inclusive da transição."}}, {"@type": "Question", "name": "Quanto tempo leva para ver resultado?", "acceptedAnswer": {"@type": "Answer", "text": "Boa parte das mudanças pode ser implementada no mês seguinte. A redução tributária é sentida já nas primeiras guias após a reestruturação."}}, {"@type": "Question", "name": "Meu faturamento é baixo. Compensa fazer análise?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. A análise é gratuita e vale para qualquer perfil. Mesmo médicos com faturamento de R$ 10.000/mês frequentemente estão no regime errado. Nossa equipe avalia e diz com honestidade se há ou não oportunidade no seu caso."}}, {"@type": "Question", "name": "A análise tem algum custo?", "acceptedAnswer": {"@type": "Answer", "text": "Não. O diagnóstico inicial é totalmente gratuito e sem compromisso. Só avançamos para um contrato se você quiser — depois de entender exatamente o que estamos propondo e quanto vai economizar."}}, {"@type": "Question", "name": "Atendem médicos em qualquer estado do Brasil?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Atendemos médicos e clínicas em todo o território nacional. Nossa operação é 100% digital com a mesma qualidade independente do seu estado."}}, {"@type": "Question", "name": "Ainda não tenho CNPJ. A análise serve para mim?", "acceptedAnswer": {"@type": "Answer", "text": "Serve, e muitas vezes é onde está a maior economia. Quem recebe plantões por RPA ou consultas no carnê-leão pode chegar a 27,5% de IR. Na análise comparamos continuar como pessoa física com abrir uma PJ, incluindo os custos de abertura e de manutenção."}}, {"@type": "Question", "name": "O que acontece depois do diagnóstico?", "acceptedAnswer": {"@type": "Answer", "text": "Você recebe o resultado pelo WhatsApp ou numa conversa rápida. Se houver oportunidade e você quiser seguir, enviamos uma proposta por escrito com escopo e honorário definidos antes de qualquer contratação. Se não houver oportunidade, a gente te fala com sinceridade."}}]}</script>
+<!-- @faqld:end -->
+<script src="/assets/di.js" defer></script>
 </head>
 <body>
 
 <nav class="navbar">
   <div class="container navbar-inner">
-    <a href="#" class="navbar-logo">Doutor<span> Impostos</span><span class="navbar-sub">Especialista na tributação da área médica</span></a>
+    <a href="/" class="navbar-logo">Doutor<span> Impostos</span><span class="navbar-sub">Especialista na tributação da área médica</span></a>
     <div style="display:flex;align-items:center;gap:1rem">
       <div class="navbar-links">
         <a href="#dor">Por que pagar menos</a>
@@ -321,11 +58,12 @@ a{text-decoration:none;color:inherit}
         <div class="hero-trust">
           <span class="hero-trust-item"><span class="hero-trust-icon">✔</span>Atuação em todo o Brasil</span>
           <span class="hero-trust-item"><span class="hero-trust-icon">✔</span>100% legal e regulamentado</span>
+          <span class="hero-trust-item"><span class="hero-trust-icon">✔</span>Para quem é PF, PJ ou tem clínica</span>
         </div>
       </div>
       <div class="hero-photo">
         <div class="hero-photo-wrap">
-          <img src="https://github.com/contabilidadeqem/site-doutor-imposto/blob/c711f435396d0051c5d112afa33076e2cfcbb15c/design.png?raw=true" alt="Especialista Doutor Impostos" loading="eager">
+          <picture><source srcset="/img/especialista.webp" type="image/webp"><img src="/img/especialista.jpg" alt="Especialista do Doutor Impostos" width="720" height="900" loading="eager" fetchpriority="high"></picture>
           <div class="hero-photo-tag"><span>Especialista em tributação médica</span><strong>Doutor Impostos</strong></div>
         </div>
       </div>
@@ -351,7 +89,22 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
-<section class="section" id="quebra">
+<section class="section" id="solucoes">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag">Qual é o seu caso?</div>
+      <h2 class="h2">Cada perfil de médico tem um caminho diferente para pagar menos</h2>
+    </div>
+    <div class="sol-grid">
+      <a class="sol-card reveal" href="/medico-pj/"><span class="sol-icon">🧾</span><span class="sol-title">Recebo como pessoa física</span><span class="sol-desc">Plantões por RPA ou carnê-leão. Veja quando abrir PJ compensa.</span><span class="sol-link">Médico PF ou PJ →</span></a>
+      <a class="sol-card reveal" href="/equiparacao-hospitalar/"><span class="sol-icon">🏥</span><span class="sol-title">Tenho clínica com procedimentos</span><span class="sol-desc">A equiparação hospitalar pode reduzir o IRPJ em até 75%.</span><span class="sol-link">Equiparação hospitalar →</span></a>
+      <a class="sol-card reveal" href="/trocar-de-contador/"><span class="sol-icon">🔄</span><span class="sol-title">Já sou PJ e quero uma segunda opinião</span><span class="sol-desc">Revisamos o regime, o pró-labore e a distribuição de lucros.</span><span class="sol-link">Trocar de contador →</span></a>
+      <a class="sol-card reveal" href="/reforma-tributaria-medicos/"><span class="sol-icon">📣</span><span class="sol-title">Quero me preparar para a reforma</span><span class="sol-desc">IBS, CBS e a nova tributação de dividendos em 2026.</span><span class="sol-link">Reforma tributária →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" id="quebra">
   <div class="container">
     <div class="quebra-wrap">
       <div class="quebra-left reveal">
@@ -365,20 +118,20 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
       <div class="quebra-box reveal">
-        <div class="quebra-hl">"O médico médio paga <em>até 33% do faturamento</em> em impostos quando poderia pagar 8% ou menos."</div>
-        <p>Isso porque a maioria nunca fez uma análise tributária especializada. Um contador generalista não conhece as especificidades da saúde: ISS variável por município, serviços hospitalares com redução de alíquota, regimes específicos para sociedades médicas.</p>
+        <div class="quebra-hl">Recebendo como pessoa física, o médico pode chegar a <em>27,5% de IR</em>. Com a estrutura certa, a carga pode cair para <em>algo entre 8% e 16%</em>.</div>
+        <p>A diferença vem do regime, do município e da forma de recebimento, e a maioria nunca fez uma análise tributária especializada. Um contador generalista não conhece as especificidades da saúde: ISS variável por município, serviços hospitalares com redução de alíquota, regimes específicos para sociedades médicas.</p>
         <div class="quebra-hl quebra-hl2">Trabalhamos exclusivamente com médicos e clínicas. Isso faz toda a diferença!</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section--gray" id="casos">
+<section class="section" id="casos">
   <div class="container">
     <div class="sec-head reveal">
       <div class="tag">Casos reais</div>
       <h2 class="h2">O que acontece quando você otimiza sua estrutura tributária</h2>
-      <p class="lead" style="margin-top:.75rem">Nomes fictícios, números reais. Perfis dos médicos que atendemos nos últimos 12 meses.</p>
+      <p class="lead" style="margin-top:.75rem">Nomes fictícios para preservar o sigilo dos clientes. Valores arredondados. O resultado de cada caso depende da especialidade, do município e da estrutura atual.</p>
     </div>
     <div class="casos-grid">
       <div class="caso-card reveal">
@@ -415,7 +168,7 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
-<section class="section" id="como">
+<section class="section section--gray" id="como">
   <div class="container">
     <div class="sec-head reveal">
       <div class="tag">Como funciona</div>
@@ -423,7 +176,7 @@ a{text-decoration:none;color:inherit}
       <p class="lead" style="margin-top:.75rem">Sem complicação, sem burocracia. Você só precisa de 3 minutos para começar.</p>
     </div>
     <div class="como-steps">
-      <div class="como-step reveal"><div class="como-num">1</div><div><div class="como-title">Preenche o formulário</div><p class="como-desc">Dados básicos sobre sua clínica e regime atual. Rápido e sem compromisso.</p></div></div>
+      <div class="como-step reveal"><div class="como-num">1</div><div><div class="como-title">Preenche o formulário</div><p class="como-desc">Nome, WhatsApp e como você atua hoje (PF, PJ ou clínica). Leva 1 minuto.</p></div></div>
       <div class="como-step reveal"><div class="como-num">2</div><div><div class="como-title">Análise tributária</div><p class="como-desc">Nossa equipe especializada analisa seu perfil e identifica as oportunidades de redução.</p></div></div>
       <div class="como-step reveal"><div class="como-num">3</div><div><div class="como-title">Diagnóstico gratuito</div><p class="como-desc">Você recebe um diagnóstico com o quanto pode economizar e o caminho para chegar lá.</p></div></div>
     </div>
@@ -491,6 +244,7 @@ a{text-decoration:none;color:inherit}
 </section>
 
 
+<!-- @form:start (gerado por _src/gerar_paginas.py — edite lá) -->
 <section class="form-section" id="formulario">
   <div class="container">
     <div class="form-wrap">
@@ -500,42 +254,50 @@ a{text-decoration:none;color:inherit}
         <p>Preencha o formulário. Nossa equipe entra em contato em até 1 dia útil com um diagnóstico personalizado para o seu perfil.</p>
         <ul class="form-list">
           <li>Análise 100% gratuita</li>
-          <li>Diagnóstico tributário personalizado</li>
+          <li>Serve para quem é PF, PJ ou tem clínica</li>
           <li>Sem compromisso de contratação</li>
-          <li>Retorno em até 24h úteis</li>
+          <li>Retorno em até 1 dia útil pelo WhatsApp</li>
           <li>Sigilo total das informações</li>
         </ul>
       </div>
       <div class="form-right reveal">
         <div class="form-box">
           <p class="form-box-title">Solicite sua análise tributária</p>
-          <form id="leadForm" class="form-fields" novalidate>
-            <div class="form-row2">
+          <div class="form-progress"><span id="formStepLabel">Etapa 1 de 2</span><div class="form-progress-track"><div class="form-progress-fill" id="formProgressFill"></div></div></div>
+          <form id="leadForm" novalidate>
+            <div class="form-step active" data-step="1">
               <div class="form-group"><label class="form-label" for="nome">Nome completo *</label><input class="form-input" type="text" id="nome" placeholder="Dr. João Silva" autocomplete="name"><span class="form-err" id="err-nome">Informe seu nome.</span></div>
-              <div class="form-group"><label class="form-label" for="whatsapp">WhatsApp *</label><input class="form-input" type="tel" id="whatsapp" placeholder="(99) 99999-9999" inputmode="numeric"><span class="form-err" id="err-whatsapp">Número inválido.</span></div>
+              <div class="form-group"><label class="form-label" for="whatsapp">WhatsApp *</label><input class="form-input" type="tel" id="whatsapp" placeholder="(99) 99999-9999" inputmode="numeric" autocomplete="tel-national"><span class="form-err" id="err-whatsapp">Número inválido.</span></div>
+              <div class="form-group"><label class="form-label" for="atuacao">Hoje você atua como *</label><select class="form-select" id="atuacao"><option value="">Selecione...</option><option>Pessoa física (plantões, RPA, carnê-leão)</option><option>Tenho PJ (CNPJ próprio)</option><option>Tenho clínica / consultório com equipe</option><option>Vou abrir minha empresa / recém-formado</option></select><span class="form-err" id="err-atuacao">Selecione uma opção.</span></div>
+              <button type="button" class="form-submit" id="nextBtn">Continuar →</button>
             </div>
-            <div class="form-group"><label class="form-label" for="email">E-mail *</label><input class="form-input" type="email" id="email" placeholder="joao@clinica.com.br" inputmode="email"><span class="form-err" id="err-email">E-mail inválido.</span></div>
-            <div class="form-group"><label class="form-label" for="empresa">Nome da empresa *</label><input class="form-input" type="text" id="empresa" placeholder="Clínica Silva LTDA"><span class="form-err" id="err-empresa">Informe a empresa.</span></div>
-            <div class="form-row2">
-              <div class="form-group"><label class="form-label" for="segmento">Segmento *</label><select class="form-select" id="segmento"><option value="">Selecione...</option><option>Clínica médica</option><option>Odontologia</option><option>Cirurgia plástica</option><option>Cardiologia</option><option>Ortopedia</option><option>Dermatologia</option><option>Oftalmologia</option><option>Psiquiatria / Psicologia</option><option>Fisioterapia</option><option>Outro</option></select><span class="form-err" id="err-segmento">Selecione.</span></div>
-              <div class="form-group"><label class="form-label" for="faturamento">Faturamento mensal *</label><select class="form-select" id="faturamento"><option value="">Selecione...</option><option>Até R$ 10.000</option><option>R$ 10.000 a R$ 30.000</option><option>R$ 30.000 a R$ 60.000</option><option>R$ 60.000 a R$ 100.000</option><option>Acima de R$ 100.000</option></select><span class="form-err" id="err-faturamento">Selecione.</span></div>
+            <div class="form-step" data-step="2">
+              <div class="form-row2">
+                <div class="form-group"><label class="form-label" for="faturamento">Faturamento mensal *</label><select class="form-select" id="faturamento"><option value="">Selecione...</option><option>Até R$ 10.000</option><option>R$ 10.000 a R$ 30.000</option><option>R$ 30.000 a R$ 60.000</option><option>R$ 60.000 a R$ 100.000</option><option>Acima de R$ 100.000</option></select><span class="form-err" id="err-faturamento">Selecione.</span></div>
+                <div class="form-group"><label class="form-label" for="especialidade">Especialidade</label><select class="form-select" id="especialidade"><option value="">Selecione...</option><option>Clínica médica / generalista</option><option>Anestesiologia</option><option>Cardiologia</option><option>Cirurgia geral</option><option>Cirurgia plástica</option><option>Dermatologia</option><option>Ginecologia e obstetrícia</option><option>Oftalmologia</option><option>Ortopedia</option><option>Pediatria</option><option>Psiquiatria</option><option>Radiologia / imagem</option><option>Odontologia</option><option>Outra</option></select></div>
+              </div>
+              <div class="form-group"><label class="form-label" for="regime">Regime tributário atual</label><select class="form-select" id="regime"><option value="">Selecione...</option><option>Não tenho CNPJ (pessoa física)</option><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option><option>Não sei</option></select></div>
+              <div class="form-group"><label class="form-label" for="email">E-mail <span class="form-hint">(opcional)</span></label><input class="form-input" type="email" id="email" placeholder="joao@clinica.com.br" inputmode="email" autocomplete="email"><span class="form-err" id="err-email">E-mail inválido.</span></div>
+              <div class="form-group"><label class="form-label" for="mensagem">Sua principal dúvida <span class="form-hint">(opcional)</span></label><textarea class="form-textarea" id="mensagem" placeholder="Ex.: recebo plantões como PF e quero saber se compensa abrir PJ"></textarea></div>
+              <label class="form-check"><input type="checkbox" id="lgpd"><span>Autorizo o contato pelo WhatsApp e concordo com a <a href="/politica-de-privacidade/" target="_blank">Política de Privacidade</a>.</span></label>
+              <span class="form-err" id="err-lgpd">Precisamos da sua autorização para entrar em contato.</span>
+              <div class="form-fail" id="formFail">Não conseguimos enviar agora. Tente de novo ou <a href="https://wa.me/5581994034692" target="_blank" rel="noopener" data-loc="form-erro">fale direto no WhatsApp</a>.</div>
+              <div class="form-actions"><button type="button" class="form-back" id="backBtn">← Voltar</button><button type="submit" class="form-submit" id="submitBtn">Solicitar análise gratuita →</button></div>
             </div>
-            <div class="form-group"><label class="form-label" for="regime">Regime tributário atual *</label><select class="form-select" id="regime"><option value="">Selecione...</option><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option><option>Não sei / Nunca revisei</option></select><span class="form-err" id="err-regime">Selecione.</span></div>
-            <div class="form-group"><label class="form-label" for="mensagem">Mensagem (opcional)</label><textarea class="form-textarea" id="mensagem" placeholder="Descreva sua situação ou principal dúvida..."></textarea></div>
-            <button type="submit" class="form-submit" id="submitBtn">Solicitar análise personalizada →</button>
             <p class="form-note">🔒 Seus dados são protegidos. Não compartilhamos com terceiros.</p>
           </form>
           <div class="success" id="successMsg">
             <div class="success-icon">✅</div>
             <h3>Solicitação enviada!</h3>
-            <p>Nosso time vai analisar seu perfil e entrar em contato em até <strong>1 dia útil</strong> pelo WhatsApp informado.</p>
-            <a href="https://wa.me/5581994034692" target="_blank" class="success-wa">💬 Falar no WhatsApp agora</a>
+            <p>Nosso time vai analisar seu perfil e entrar em contato em até <strong>1 dia útil</strong> pelo WhatsApp informado. Em instantes você poderá sugerir horários para a conversa.</p>
+            <a href="https://wa.me/5581994034692" target="_blank" rel="noopener" class="success-wa" data-loc="form-sucesso">💬 Falar no WhatsApp agora</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- @form:end -->
 
 <section class="section" id="autoridade">
   <div class="container">
@@ -574,6 +336,8 @@ a{text-decoration:none;color:inherit}
       <div class="faq-item"><button class="faq-q">Meu faturamento é baixo. Compensa fazer análise? <span class="faq-icon">+</span></button><div class="faq-a"><p>Sim. A análise é gratuita e vale para qualquer perfil. Mesmo médicos com faturamento de R$ 10.000/mês frequentemente estão no regime errado. Nossa equipe avalia e diz com honestidade se há ou não oportunidade no seu caso.</p></div></div>
       <div class="faq-item"><button class="faq-q">A análise tem algum custo? <span class="faq-icon">+</span></button><div class="faq-a"><p>Não. O diagnóstico inicial é totalmente gratuito e sem compromisso. Só avançamos para um contrato se você quiser — depois de entender exatamente o que estamos propondo e quanto vai economizar.</p></div></div>
       <div class="faq-item"><button class="faq-q">Atendem médicos em qualquer estado do Brasil? <span class="faq-icon">+</span></button><div class="faq-a"><p>Sim. Atendemos médicos e clínicas em todo o território nacional. Nossa operação é 100% digital com a mesma qualidade independente do seu estado.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Ainda não tenho CNPJ. A análise serve para mim? <span class="faq-icon">+</span></button><div class="faq-a"><p>Serve, e muitas vezes é onde está a maior economia. Quem recebe plantões por RPA ou consultas no carnê-leão pode chegar a 27,5% de IR. Na análise comparamos continuar como pessoa física com abrir uma PJ, incluindo os custos de abertura e de manutenção.</p></div></div>
+      <div class="faq-item"><button class="faq-q">O que acontece depois do diagnóstico? <span class="faq-icon">+</span></button><div class="faq-a"><p>Você recebe o resultado pelo WhatsApp ou numa conversa rápida. Se houver oportunidade e você quiser seguir, enviamos uma proposta por escrito com escopo e honorário definidos antes de qualquer contratação. Se não houver oportunidade, a gente te fala com sinceridade.</p></div></div>
     </div>
     <div class="center reveal" style="margin-top:2rem">
       <a href="#formulario" class="btn btn-green btn-full" style="max-width:380px;margin:0 auto;padding:1rem 1.5rem">Ainda tem dúvida? Fale com a gente →</a>
@@ -581,111 +345,50 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
-<footer class="footer">
+<!-- @footer:start (gerado por _src/gerar_paginas.py — edite lá) -->
+<footer class="footer" id="rodape">
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand-col">
         <div class="footer-brand">Doutor<span> Impostos</span></div>
         <div class="footer-brand-sub">Especialista na tributação da área médica</div>
         <p class="footer-desc">Redução tributária legal e estratégica para médicos e clínicas em todo o Brasil.</p>
-        <a href="https://wa.me/5581994034692" target="_blank" class="footer-wa">💬 Falar no WhatsApp</a>
+        <a href="https://wa.me/5581994034692" target="_blank" rel="noopener" class="footer-wa">💬 Falar no WhatsApp</a>
       </div>
       <div class="footer-cols-wrap">
         <div class="footer-cols">
           <div>
-            <div class="footer-col-title">Navegação</div>
-            <a href="#dor" class="footer-link">Por que pagar menos</a>
-            <a href="#casos" class="footer-link">Casos reais</a>
-            <a href="#como" class="footer-link">Como funciona</a>
-            <a href="#formulario" class="footer-link">Análise personalizada</a>
-            <a href="#faq" class="footer-link">Dúvidas</a>
+            <div class="footer-col-title">Soluções</div>
+            <a href="/medico-pj/" class="footer-link">Médico PF ou PJ</a>
+            <a href="/equiparacao-hospitalar/" class="footer-link">Equiparação hospitalar</a>
+            <a href="/trocar-de-contador/" class="footer-link">Trocar de contador</a>
+            <a href="/reforma-tributaria-medicos/" class="footer-link">Reforma tributária</a>
+            <a href="/#calculadora" class="footer-link">Calculadora</a>
+            <a href="/blog/" class="footer-link">Conteúdos</a>
           </div>
           <div>
             <div class="footer-col-title">Contato</div>
-            <a href="mailto:contato@doutorImpostos.com.br" class="footer-link">contato@doutorImpostos.com.br</a>
-            <a href="https://wa.me/5581994034692" target="_blank" class="footer-link">(81) 99403-4692</a>
-            <div style="margin-top:.85rem;font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.35)">Seg–Sex: 8h às 18h<br>Atendimento nacional</div>
+            <a href="https://wa.me/5581994034692" target="_blank" rel="noopener" class="footer-link">(81) 99403-4692</a>
+            <a href="https://www.instagram.com/doutor_impostos/" target="_blank" rel="noopener" class="footer-link">Instagram @doutor_impostos</a>
+            <a href="/politica-de-privacidade/" class="footer-link">Política de privacidade</a>
+            <div style="margin-top:.85rem;font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.35)">Seg–Sex: 8h às 18h<br>Atendimento 100% digital, em todo o Brasil</div>
           </div>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2024 Doutor Impostos. Todos os direitos reservados.</span>
+      <span>© 2026 Doutor Impostos. Todos os direitos reservados.</span>
+      
       <span>CNPJ: 58.848.633/0001-34</span>
     </div>
   </div>
 </footer>
 
-<a class="wa-btn" href="https://wa.me/5581994034692" target="_blank" aria-label="Falar no WhatsApp">
+<a class="wa-btn" href="https://wa.me/5581994034692" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" data-loc="botao-flutuante">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.006L2.038 22l5.109-1.295A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.962 7.962 0 01-4.069-1.114l-.29-.173-3.033.768.797-2.966-.19-.304A7.962 7.962 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>
 </a>
+<!-- @footer:end -->
 
-<script>
-window.addEventListener('scroll',function(){
-  document.querySelector('.navbar').style.boxShadow=window.scrollY>60?'0 4px 16px rgba(0,0,0,.2)':'none';
-},{passive:true});
-
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click',function(e){
-    var t=document.querySelector(this.getAttribute('href'));
-    if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-68,behavior:'smooth'});}
-  });
-});
-
-var obs=new IntersectionObserver(function(entries){
-  entries.forEach(function(en,i){
-    if(en.isIntersecting){setTimeout(function(){en.target.classList.add('visible')},i*70);obs.unobserve(en.target);}
-  });
-},{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-
-document.querySelectorAll('.faq-q').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var item=btn.parentElement,open=item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open')});
-    if(!open)item.classList.add('open');
-  });
-});
-
-var waInput=document.getElementById('whatsapp');
-waInput.addEventListener('input',function(){
-  var v=waInput.value.replace(/\D/g,'').slice(0,11);
-  if(v.length>7)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
-  else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);
-  else if(v.length>0)v='('+v;
-  waInput.value=v;
-});
-
-var form=document.getElementById('leadForm');
-function setF(id,errId,valid){
-  document.getElementById(id).classList.toggle('err',!valid);
-  document.getElementById(errId).classList.toggle('show',!valid);
-  return valid;
-}
-function validate(){
-  var eRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/,pRe=/^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-  return[
-    setF('nome','err-nome',document.getElementById('nome').value.trim().length>=3),
-    setF('whatsapp','err-whatsapp',pRe.test(document.getElementById('whatsapp').value.trim())),
-    setF('email','err-email',eRe.test(document.getElementById('email').value.trim())),
-    setF('empresa','err-empresa',document.getElementById('empresa').value.trim().length>=2),
-    setF('segmento','err-segmento',document.getElementById('segmento').value!==''),
-    setF('faturamento','err-faturamento',document.getElementById('faturamento').value!==''),
-    setF('regime','err-regime',document.getElementById('regime').value!==''),
-  ].every(Boolean);
-}
-form.addEventListener('submit',async function(e){
-  e.preventDefault();
-  if(!validate()){var f=form.querySelector('.form-input.err,.form-select.err');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return;}
-  var btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Enviando...';
-  var p={_subject:'Novo lead — Doutor Impostos',_replyto:document.getElementById('email').value.trim(),nome:document.getElementById('nome').value.trim(),whatsapp:document.getElementById('whatsapp').value.trim(),email:document.getElementById('email').value.trim(),empresa:document.getElementById('empresa').value.trim(),segmento:document.getElementById('segmento').value,faturamento:document.getElementById('faturamento').value,regime:document.getElementById('regime').value,mensagem:document.getElementById('mensagem').value.trim()||'(não informada)'};
-  try{await fetch('https://formspree.io/f/mykbrqqr',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(p)});}catch(err){}
-  sessionStorage.setItem('doutorImpostosLead',JSON.stringify(p));
-  form.style.display='none';
-  document.getElementById('successMsg').classList.add('show');
-  setTimeout(function(){window.location.href='agendamento.html';},4000);
-});
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -708,7 +411,7 @@ function diCalc(){
   var irpj=(fatA*.32*.15);var csll=(fatA*.32*.09);
   var pis=fatA*.0065;var cofins=fatA*.03;
   var iss_lp=fatA*issLp;var total_lp=irpj+csll+pis+cofins+iss_lp;
-  var irpj_pl=fatA*.08*.15;var csll_pl=fatA*.08*.09;
+  var irpj_pl=fatA*.08*.15;var csll_pl=fatA*.12*.09; // equiparação hospitalar: base IRPJ 8%, CSLL 12%
   var iss_pl=fatA*issPl;var total_pl=irpj_pl+csll_pl+pis+cofins+iss_pl;
   var s=diSimples(fatA);
   var aliqEf=Math.max(.06,(fatA*s.aliq-s.ded)/fatA);
@@ -791,6 +494,10 @@ function diTab(id,btn){
   if(id==='economia')diCalc();
 }
 diCalc();
+
+// Evento de uso da calculadora (1 vez por visita)
+(function(){var sent=false;function f(){if(sent||!window.diTrack)return;sent=true;var v=parseFloat(document.getElementById('ci_fat').value)||0;window.diTrack('calculator_use',{faturamento_mensal:v,regime_atual:document.getElementById('ci_regime').value});}
+document.getElementById('ci_fat').addEventListener('change',f);document.getElementById('ci_regime').addEventListener('change',f);})();
 </script>
 
 </body>

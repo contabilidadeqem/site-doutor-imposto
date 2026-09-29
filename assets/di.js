@@ -6,7 +6,7 @@
   var CONFIG = {
     // ▼ Troque pelo ID do contêiner do Google Tag Manager (ex.: GTM-AB12CD3).
     //   GA4, Google Ads e Meta Pixel são configurados DENTRO do GTM — não aqui.
-    gtmId: 'GTM-XXXXXXX',
+    gtmId: 'GTM-5TKSXZFF',
     formEndpoint: 'https://formspree.io/f/mykbrqqr',
     whatsapp: '5581994034692',
     agendamentoUrl: '/agendamento.html'

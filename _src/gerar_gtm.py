@@ -98,9 +98,18 @@ container = {
     "containerVersion": {
         "path": "accounts/0/containers/0/versions/0", **base, "containerVersionId": "0",
         "container": {"path": "accounts/0/containers/0", **base, "name": "doutorimposto.com",
-                      "publicId": "GTM-XXXXXXX", "usageContext": ["WEB"]},
+                      "publicId": "GTM-5TKSXZFF", "usageContext": ["WEB"]},
         "tag": tags, "trigger": triggers, "variable": variables,
     },
 }
 OUT.write_text(json.dumps(container, ensure_ascii=False, indent=2), encoding="utf-8")
 print("gerado:", OUT, f"({len(tags)} tags, {len(triggers)} acionadores, {len(variables)} variáveis)")
+
+# Versão só com GA4 (para importar antes de existirem as contas de Google Ads e Meta)
+ga4 = json.loads(json.dumps(container))
+cv = ga4["containerVersion"]
+cv["tag"] = [t for t in cv["tag"] if t["name"].startswith("GA4 - ")]
+cv["variable"] = [v for v in cv["variable"] if not (v["name"].startswith("CONST - ") and v["name"] != "CONST - GA4 ID")]
+OUT_GA4 = OUT.with_name("gtm-somente-ga4.json")
+OUT_GA4.write_text(json.dumps(ga4, ensure_ascii=False, indent=2), encoding="utf-8")
+print("gerado:", OUT_GA4, f"({len(cv['tag'])} tags)")
